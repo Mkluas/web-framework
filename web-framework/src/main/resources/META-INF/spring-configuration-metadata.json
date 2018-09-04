@@ -1,0 +1,19 @@
+{
+  "groups": [
+    {
+      "name": "cn.mklaus.config",
+      "type": "cn.mklaus.framework.config.AutoConfigurationProperties",
+      "sourceType": "cn.mklaus.framework.config.AutoConfigurationProperties"
+    },
+    {
+      "name": "cn.mklaus.qiniu",
+      "type": "cn.mklaus.framework.support.Qinius.Config",
+      "sourceType": "cn.mklaus.framework.support.Qinius.Config"
+    },
+    {
+      "name": "cn.mklaus.sendcloud",
+      "type": "cn.mklaus.framework.support.Sms.Config",
+      "sourceType": "cn.mklaus.framework.support.Sms.Config"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+org.springframework.context.ApplicationContextInitializer=cn.mklaus.framework.config.exception.ErrorControllerRegister
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.mklaus.framework.config.BaseWebMvcConfiguration,\
+cn.mklaus.framework.config.exception.GlobalExceptionHandler,\
+cn.mklaus.framework.config.monitor.PerformanceLogConfiguration,\
+cn.mklaus.framework.config.monitor.WebLogAspect,\
+cn.mklaus.framework.config.EventPublisher,\
+cn.mklaus.framework.support.Qinius,\
+cn.mklaus.framework.support.Sms

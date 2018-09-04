@@ -1,0 +1,9 @@
+{
+  "groups": [
+    {
+      "name": "cn.mklaus.wechat",
+      "type": "cn.mklaus.framework.wechat.WechatProperties",
+      "sourceType": "cn.mklaus.framework.wechat.WechatProperties"
+    }
+  ]
+}
