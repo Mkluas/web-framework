@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <artifactId>web-framework</artifactId>
-    <version>0.1.4</version>
+    <version>0.1.6</version>
 
     <properties>
         <nutz.version>1.r.66</nutz.version>
@@ -35,6 +35,22 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!-- Freemarker -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.rapid-framework</groupId>
+            <artifactId>rapid-core</artifactId>
+            <version>4.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
         <!-- DataSource & DAO -->
         <dependency>
             <groupId>org.nutz</groupId>
@@ -46,7 +62,7 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- tools -->
+        <!-- Tools -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -63,7 +79,7 @@
             <version>${qiniu.version}</version>
         </dependency>
 
-        <!-- logback if condition -->
+        <!-- Logback if condition -->
         <dependency>
             <groupId>org.codehaus.janino</groupId>
             <artifactId>janino</artifactId>

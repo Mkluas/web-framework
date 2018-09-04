@@ -2,6 +2,7 @@ org.springframework.context.ApplicationContextInitializer=cn.mklaus.framework.co
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 cn.mklaus.framework.config.BaseWebMvcConfiguration,\
+cn.mklaus.framework.config.FreeMarkerConfiguration,\
 cn.mklaus.framework.config.exception.GlobalExceptionHandler,\
 cn.mklaus.framework.config.monitor.PerformanceLogConfiguration,\
 cn.mklaus.framework.config.monitor.WebLogAspect,\
