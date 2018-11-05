@@ -9,7 +9,7 @@ import java.util.concurrent.*;
 
 /**
  * @author Mklaus
- * @date 2018-01-29 下午3:14
+ * Created on 2018-01-29 下午3:14
  */
 public abstract class AbstractEventQueue<T extends ApplicationEvent> implements ApplicationListener<T>, InitializingBean {
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Mklaus
- * @date 2018-01-06 下午12:08
+ * Created on 2018-01-06 下午12:08
  */
 @ConditionalOnProperty(prefix = "cn.mklaus.config", value = "eventPublisher", havingValue = "true", matchIfMissing = true)
 @Component

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Mklaus
- * @date 2018-04-02 上午10:22
+ * Created on 2018-04-02 上午10:22
  */
 @EnableConfigurationProperties(WechatProperties.class)
 public abstract class AbstractWechatInterceptor<T> extends AbstractTokenInterceptor<AbstractWechatInterceptor.TokenBox>{
@@ -64,18 +64,17 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
     }
 
     /**
-     * 参考开源微信SDK
+     * 参考开源微信SDK: https://github.com/Wechat-Group/weixin-java-tools
      *
-     * @link https://github.com/Wechat-Group/weixin-java-tools
-     * @return WxMpService
+     * @return a instance of WxMpService
      */
     protected abstract WxMpService getWxMpService();
 
     /**
      * 根据用户TokenBox{openid，unionid}获取保存在数据库的用户信息
      *
-     * @param tokenBox openid & unionid
-     * @return
+     * @param tokenBox openid and unionid
+     * @return  An user entity
      */
     protected abstract T getByTokenBox(TokenBox tokenBox);
 
@@ -84,7 +83,7 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
      * 根据WxMpUser保存并获取用户信息
      *
      * @param user  WxMpUser
-     * @return
+     * @return  An user entity
      */
     protected abstract T getOrCreateByWxMpUser(WxMpUser user);
 
@@ -92,8 +91,8 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
     /**
      * 保存当前登录用户，以备后续操作使用
      *
-     * @param user
-     * @param req
+     * @param user  用户实例
+     * @param req   HttpServletRequest
      */
     protected abstract void saveUserContext(T user, HttpServletRequest req);
 

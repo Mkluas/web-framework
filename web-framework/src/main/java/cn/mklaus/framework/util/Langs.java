@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Mklaus
- * @date 2018-01-02 上午11:27
+ * Created on 2018-01-02 上午11:27
  */
 public class Langs {
 

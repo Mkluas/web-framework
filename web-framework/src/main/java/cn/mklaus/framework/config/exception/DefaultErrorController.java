@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * @author Mklaus
- * @date 2018-03-31 上午11:57
+ * Created on 2018-03-31 上午11:57
  */
 
 @EnableConfigurationProperties(AutoConfigurationProperties.class)

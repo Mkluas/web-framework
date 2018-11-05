@@ -2,7 +2,7 @@ package cn.mklaus.framework.util;
 
 /**
  * @author Mklaus
- * @date 2018-01-05 下午1:02
+ * Created on 2018-01-05 下午1:02
  */
 public class ShortUrl {
 

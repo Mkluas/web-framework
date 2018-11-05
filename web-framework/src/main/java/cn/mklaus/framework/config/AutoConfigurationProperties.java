@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author Mklaus
- * @date 2018-03-29 上午10:05
+ * Created on 2018-03-29 上午10:05
  */
 @Data
 @ConfigurationProperties(

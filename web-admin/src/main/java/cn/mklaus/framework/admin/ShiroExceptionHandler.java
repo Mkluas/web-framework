@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Mklaus
- * @date 2018-03-31 下午12:07
+ * Created on 2018-03-31 下午12:07
  */
 @ConditionalOnClass({AuthenticationException.class, UnauthenticatedException.class})
 @ControllerAdvice

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Mklaus
- * @date 2018-01-02 下午1:41
+ * Created on 2018-01-02 下午1:41
  */
 public abstract class AbstractTokenInterceptor<T> extends HandlerInterceptorAdapter {
 

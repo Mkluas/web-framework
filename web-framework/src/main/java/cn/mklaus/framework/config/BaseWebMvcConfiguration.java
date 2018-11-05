@@ -23,7 +23,7 @@ import static com.alibaba.fastjson.serializer.SerializerFeature.WriteNullNumberA
 
 /**
  * @author Mklaus
- * @date 2018-01-03 下午3:08
+ * Created on 2018-01-03 下午3:08
  */
 @EnableConfigurationProperties(AutoConfigurationProperties.class)
 @Configuration

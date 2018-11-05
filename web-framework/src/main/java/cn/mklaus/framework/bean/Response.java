@@ -13,7 +13,7 @@ import java.util.Map;
  * 用于对api请求结果的封装
  *
  * @author Mklaus
- * @date 2018-01-02 下午1:10
+ * Created on 2018-01-02 下午1:10
  */
 @Data
 public class Response {

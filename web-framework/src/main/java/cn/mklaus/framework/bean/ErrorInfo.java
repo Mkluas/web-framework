@@ -2,7 +2,7 @@ package cn.mklaus.framework.bean;
 
 /**
  * @author Mklaus
- * @date 2018-02-05 上午11:55
+ * Created on 2018-02-05 上午11:55
  */
 public interface ErrorInfo {
 

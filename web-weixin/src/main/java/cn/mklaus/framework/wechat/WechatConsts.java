@@ -2,7 +2,7 @@ package cn.mklaus.framework.wechat;
 
 /**
  * @author Mklaus
- * @date 2018-08-15 上午11:23
+ * Created on 2018-08-15 上午11:23
  */
 public class WechatConsts {
 

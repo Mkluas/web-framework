@@ -31,7 +31,7 @@ import java.io.File;
 
 /**
  * @author Mklaus
- * @date 2018-01-27 下午3:07
+ * Created on 2018-01-27 下午3:07
  */
 @ConditionalOnProperty(prefix = "cn.mklaus.qiniu", value = "access-key")
 @EnableConfigurationProperties(Qinius.Config.class)

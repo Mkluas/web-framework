@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.joining;
 
 /**
  * @author Mklaus
- * @date 2018-01-27 下午3:11
+ * Created on 2018-01-27 下午3:11
  */
 @ConditionalOnProperty(prefix = "cn.mklaus.sendcloud", value = "sms-key")
 @EnableConfigurationProperties(Sms.Config.class)

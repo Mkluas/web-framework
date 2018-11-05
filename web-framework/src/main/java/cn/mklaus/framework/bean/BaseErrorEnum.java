@@ -2,7 +2,7 @@ package cn.mklaus.framework.bean;
 
 /**
  * @author Mklaus
- * @date 2018-02-05 上午11:56
+ * Created on 2018-02-05 上午11:56
  */
 public enum BaseErrorEnum implements ErrorInfo {
 

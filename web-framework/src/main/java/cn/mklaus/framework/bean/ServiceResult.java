@@ -9,7 +9,7 @@ import java.util.Map;
  * 用于对业务逻辑处理结果的封装
  *
  * @author Mklaus
- * @date 2018-01-02 下午12:10
+ * Created on 2018-01-02 下午12:10
  */
 @Data
 public class ServiceResult {

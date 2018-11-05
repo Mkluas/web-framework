@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author Mklaus
- * @date 2018-04-02 上午10:14
+ * Created on 2018-04-02 上午10:14
  */
 @Data
 @ConfigurationProperties(prefix = "cn.mklaus.wechat")

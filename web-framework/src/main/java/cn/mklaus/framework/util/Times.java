@@ -13,7 +13,7 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 
 /**
  * @author Mklaus
- * @date 2018-01-05 上午11:58
+ * Created on 2018-01-05 上午11:58
  */
 public class Times {
 

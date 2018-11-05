@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 限制字符串长度，一个英文字符长度为1，一个中文汉字长度为2。
  *
  * @author Mklaus
- * @date 2018-07-11 下午5:16
+ * Created on 2018-07-11 下午5:16
  */
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RUNTIME)

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Mklaus
- * @date 2018-01-03 下午6:11
+ * Created on 2018-01-03 下午6:11
  */
 @ControllerAdvice
 @EnableConfigurationProperties(AutoConfigurationProperties.class)

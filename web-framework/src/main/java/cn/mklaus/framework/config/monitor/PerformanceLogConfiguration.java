@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 
 /**
  * @author Mklaus
- * @date 2018-01-13 下午4:21
+ * Created on 2018-01-13 下午4:21
  */
 @Configuration
 @EnableAspectJAutoProxy

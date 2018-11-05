@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 /**
  * @author Mklaus
- * @date 2018-07-12 上午10:59
+ * Created on 2018-07-12 上午10:59
  */
 @ConditionalOnClass(WxMpService.class)
 @EnableConfigurationProperties(WechatProperties.Mp.class)

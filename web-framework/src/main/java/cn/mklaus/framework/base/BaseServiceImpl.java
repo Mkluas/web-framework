@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * @author Mklaus
- * @date 2018-01-08 上午11:26
+ * Created on 2018-01-08 上午11:26
  */
 public abstract class BaseServiceImpl<T extends BaseEntity> extends EntityService<T> {
 
