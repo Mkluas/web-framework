@@ -35,6 +35,10 @@ public class Times {
         return s.intValue();
     }
 
+    public static LocalDateTime toLocalDateTime(long seconds) {
+        return LocalDateTime.ofEpochSecond(seconds, 0, ZoneOffset.of("+8"));
+    }
+
     private static final DateTimeFormatter CUSTOM_DATE_TIME_FORMATTER;
 
     static {

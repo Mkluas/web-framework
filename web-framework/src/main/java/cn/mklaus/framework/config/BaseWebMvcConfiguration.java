@@ -17,6 +17,10 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.alibaba.fastjson.serializer.SerializerFeature.WriteNullBooleanAsFalse;
+import static com.alibaba.fastjson.serializer.SerializerFeature.WriteNullListAsEmpty;
+import static com.alibaba.fastjson.serializer.SerializerFeature.WriteNullNumberAsZero;
+
 /**
  * @author Mklaus
  * @date 2018-01-03 下午3:08
@@ -44,7 +48,7 @@ public class BaseWebMvcConfiguration extends WebMvcConfigurerAdapter {
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         //2.添加fastJson的配置信息，比如：是否要格式化返回的json数据;
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        fastJsonConfig.setSerializerFeatures(WriteNullNumberAsZero, WriteNullListAsEmpty, WriteNullBooleanAsFalse, SerializerFeature.PrettyFormat);
         //3处理中文乱码问题
         List<MediaType> fastMediaTypes = new ArrayList<>();
         fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
