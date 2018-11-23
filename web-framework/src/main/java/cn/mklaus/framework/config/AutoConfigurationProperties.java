@@ -1,7 +1,11 @@
 package cn.mklaus.framework.config;
 
 import lombok.Data;
+import org.springframework.beans.BeansException;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * @author Mklaus
@@ -11,7 +15,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(
         prefix = "cn.mklaus.config"
 )
-public class AutoConfigurationProperties {
+public class AutoConfigurationProperties implements ApplicationContextAware {
 
     private String basepackage;
 
@@ -30,5 +34,18 @@ public class AutoConfigurationProperties {
     private boolean showErrorDetail = true;
 
     private boolean useDefaultResourceHandler = true;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        if ((basepackage != null && basepackage.length() > 0)) {
+            return;
+        }
+
+        String[] springBootApplicationAnnotations = applicationContext.getBeanNamesForAnnotation(SpringBootApplication.class);
+        if (springBootApplicationAnnotations.length > 0) {
+            Object bean = applicationContext.getBean(springBootApplicationAnnotations[0]);
+            basepackage = bean.getClass().getPackage().getName();
+        }
+    }
 
 }

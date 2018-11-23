@@ -2,10 +2,7 @@ package cn.mklaus.framework.config.monitor;
 
 import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -28,16 +25,14 @@ public class WebLogAspect {
 
     private static Logger log = LoggerFactory.getLogger(WebLogAspect.class);
 
-    @Pointcut("execution(public * *..web.*Controller.*(..))")
-    public void webLog(){}
+    @Pointcut("execution(public * *..web..*Controller.*(..))")
+    public void controllerPointcut(){}
 
-    @Before("webLog()")
+    @Before("controllerPointcut()")
     public void doBefore(JoinPoint joinPoint) {
-        // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
-        // 记录下请求内容
         log.info("================== check request information start.. ========================");
         log.info("URL    : {} {}", request.getRequestURL().toString(), request.getMethod());
         log.info("METHOD : {}.{}", joinPoint.getSignature().getDeclaringTypeName(),joinPoint.getSignature().getName());
@@ -45,7 +40,7 @@ public class WebLogAspect {
         log.info("================== check request information end ... ========================");
     }
 
-    @AfterReturning(returning = "ret", pointcut = "webLog()")
+    @AfterReturning(returning = "ret", pointcut = "controllerPointcut()")
     public void doAfterReturning(Object ret) {
         log.info("RESPONSE : " + ret);
     }
