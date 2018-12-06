@@ -1,8 +1,10 @@
 package cn.mklaus.framework.bean;
 
 /**
+ * Group for Validate
+ *
  * @author klaus
- * @date 2018/12/5 6:24 PM
+ * Created on 2018/12/5 6:24 PM
  */
 public interface Update {
 }

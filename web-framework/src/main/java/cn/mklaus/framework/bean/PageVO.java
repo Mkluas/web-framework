@@ -5,8 +5,10 @@ import lombok.ToString;
 import org.nutz.dao.pager.Pager;
 
 /**
+ * PageVO
+ *
  * @author Klaus
- * @date 2018/7/7
+ * Created on 2018/7/7
  */
 @Data
 @ToString
