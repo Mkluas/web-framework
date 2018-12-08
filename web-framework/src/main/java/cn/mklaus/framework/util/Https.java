@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Objects;
@@ -111,16 +112,22 @@ public class Https {
     }
 
     public static void responseImage(File image, HttpServletResponse resp) throws IOException {
-        FileInputStream inputStream = new FileInputStream(image);
-        byte[] data = new byte[(int)image.length()];
-        inputStream.read(data);
-        inputStream.close();
+        responseFile(image, "", "image/png", resp);
+    }
 
-        resp.setContentType("image/png");
-        OutputStream stream = resp.getOutputStream();
-        stream.write(data);
-        stream.flush();
-        stream.close();
+    public static void responseFile(File file, String filename, String contentType, HttpServletResponse resp) throws IOException {
+        if (Strings.isNotBlank(filename)) {
+            resp.setHeader("Content-Disposition", "attachment;filename*=utf-8''" + URLEncoder.encode(filename, "UTF-8"));
+        }
+        resp.setContentType(contentType);
+        try (FileInputStream in = new FileInputStream(file);OutputStream out = resp.getOutputStream()) {
+            byte[] buffer = new byte[4096];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+            out.flush();
+        }
     }
 
     public static File download(String url) throws IOException {

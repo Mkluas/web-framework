@@ -40,7 +40,7 @@ public class FreeMarkerConfiguration extends WebMvcConfigurerAdapter {
     }
 
 
-    class TimeFormatMethod implements TemplateMethodModelEx {
+    static class TimeFormatMethod implements TemplateMethodModelEx {
 
         private static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
