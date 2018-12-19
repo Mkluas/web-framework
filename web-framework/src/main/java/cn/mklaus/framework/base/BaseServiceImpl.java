@@ -18,7 +18,7 @@ import java.util.List;
  * @author Mklaus
  * Created on 2018-01-08 上午11:26
  */
-public abstract class BaseServiceImpl<T extends BaseEntity> extends EntityService<T> {
+public abstract class BaseServiceImpl<T extends Entity> extends EntityService<T> {
 
     @Autowired
     private Dao dao;
@@ -179,12 +179,12 @@ public abstract class BaseServiceImpl<T extends BaseEntity> extends EntityServic
      */
 
     public int update(T obj) {
-        obj.setUpdateTime(Times.now());
+        obj.refreshUpdateTime();
         return this.dao().update(obj);
     }
 
     public int update(T obj, FieldFilter fieldFilter) {
-        obj.setUpdateTime(Times.now());
+        obj.refreshUpdateTime();
         return this.dao().update(obj, fieldFilter);
     }
 
@@ -194,17 +194,17 @@ public abstract class BaseServiceImpl<T extends BaseEntity> extends EntityServic
     }
 
     public int updateIgnoreNull(T obj) {
-        obj.setUpdateTime(Times.now());
+        obj.refreshUpdateTime();
         return this.dao().updateIgnoreNull(obj);
     }
 
     public int updateWithVersion(T obj) {
-        obj.setUpdateTime(Times.now());
+        obj.refreshUpdateTime();
         return this.dao().updateWithVersion(obj);
     }
 
     public int updateWithVersion(T obj, FieldFilter fieldFilter) {
-        obj.setUpdateTime(Times.now());
+        obj.refreshUpdateTime();
         return this.dao().updateWithVersion(obj, fieldFilter);
     }
 

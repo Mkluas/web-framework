@@ -7,32 +7,35 @@ import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.EL;
 import org.nutz.dao.entity.annotation.Prev;
 
+import java.sql.Timestamp;
+
+
 /**
- * @author Mklaus
- * Created on 2018-01-08 上午10:51
+ * @author klaus
+ * @date 2018/12/19 9:44 AM
  */
 @Data
 @ToString
-public class BaseEntity extends Entity<Integer> {
+public class BaseTimestampEntity extends Entity<Timestamp> {
 
     @Column("ct")
-    @ColDefine(update = false, width = 10)
+    @ColDefine(update = false, customType = "datetime")
     @Prev(els = @EL("$me.now()"))
-    protected Integer createTime;
+    protected Timestamp createTime;
 
     @Column("ut")
-    @ColDefine(width = 10)
+    @ColDefine(customType = "datetime")
     @Prev(els = @EL("$me.now()"))
-    protected Integer updateTime;
+    protected Timestamp updateTime;
 
     @Override
-    public Integer now() {
-        return (int) (System.currentTimeMillis() / 1000);
+    public Timestamp now() {
+        return new Timestamp(System.currentTimeMillis());
     }
 
     @Override
     public void refreshUpdateTime() {
-        this.updateTime = (int) (System.currentTimeMillis() / 1000);
+        this.updateTime = new Timestamp(System.currentTimeMillis());
     }
 
 }

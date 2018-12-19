@@ -12,7 +12,7 @@ import java.util.List;
  * @author Mklaus
  * Created on 2018-01-08 上午11:26
  */
-public interface BaseService<T> {
+public interface BaseService<T extends Entity> {
 
     Dao dao();
 
