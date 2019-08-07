@@ -1,5 +1,6 @@
 package cn.mklaus.framework.bean;
 
+import cn.mklaus.framework.exception.ErrorInfo;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
@@ -24,12 +25,8 @@ public class ServiceResult {
 
     private JSONObject data;
 
-    private ServiceResult() {
-        this.data = new JSONObject();
-    }
-
     private ServiceResult(int code, String msg) {
-        this();
+        this.data = new JSONObject();
         this.code = code;
         this.msg = msg;
     }
@@ -67,6 +64,10 @@ public class ServiceResult {
     public ServiceResult putEntity(Object entity) {
         this.put(ENTITY_KEY, entity);
         return this;
+    }
+
+    public JSONObject getData() {
+        return this.data;
     }
 
     public <T> T getEntity(Class<T> classOfT) {

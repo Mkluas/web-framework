@@ -7,7 +7,6 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
-import org.nutz.lang.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -115,7 +114,7 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
 
     private boolean getUserByCode(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String code = req.getParameter(WECHAT_CODE);
-        if (Strings.isBlank(code)) {
+        if (isBlank(code)) {
             log.debug("No auth code, send request and redirect");
             return requestAuthCode(req, resp);
         } else {
@@ -136,7 +135,7 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
 
 
     private boolean requestAuthCode(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-        String queryString = Strings.isNotBlank(req.getQueryString()) ? "?" + req.getQueryString() : "";
+        String queryString = isBlank(req.getQueryString()) ? "" : "?" + req.getQueryString();
         String thisUrl = mp.getDomain() + req.getRequestURI() + queryString;
         String url = this.getWxMpService().oauth2buildAuthorizationUrl(thisUrl, "snsapi_userinfo", "state");
         resp.sendRedirect(url);
@@ -144,6 +143,12 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
     }
 
 
+    private static boolean isBlank(String s) {
+        return s == null || s.trim().length() == 0;
+    }
+    private static boolean isNotBlank(String s) {
+        return !isBlank(s);
+    }
 
     @ToString
     public static class TokenBox {
@@ -156,7 +161,7 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
         }
 
         private boolean hasToken() {
-            return Strings.isNotBlank(openid) || Strings.isNotBlank(unionid);
+            return isNotBlank(openid) || isNotBlank(unionid);
         }
 
         public String getOpenid() {

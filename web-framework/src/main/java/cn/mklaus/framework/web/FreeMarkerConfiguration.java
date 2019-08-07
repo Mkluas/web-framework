@@ -1,4 +1,4 @@
-package cn.mklaus.framework.config;
+package cn.mklaus.framework.web;
 
 import cn.org.rapid_framework.freemarker.directive.BlockDirective;
 import cn.org.rapid_framework.freemarker.directive.ExtendsDirective;
@@ -62,6 +62,5 @@ public class FreeMarkerConfiguration extends WebMvcConfigurerAdapter {
         }
 
     }
-
 
 }

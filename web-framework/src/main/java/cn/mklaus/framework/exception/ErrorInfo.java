@@ -1,4 +1,4 @@
-package cn.mklaus.framework.bean;
+package cn.mklaus.framework.exception;
 
 /**
  * @author Mklaus

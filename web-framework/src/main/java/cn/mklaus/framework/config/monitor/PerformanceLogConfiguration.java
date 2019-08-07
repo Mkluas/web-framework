@@ -1,5 +1,6 @@
 package cn.mklaus.framework.config.monitor;
 
+import cn.mklaus.framework.AutoConfigurationProperties;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -7,6 +8,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StopWatch;
 
@@ -16,6 +18,7 @@ import org.springframework.util.StopWatch;
  */
 @Aspect
 @Configuration
+@EnableConfigurationProperties(AutoConfigurationProperties.class)
 @ConditionalOnProperty(prefix = "cn.mklaus.config", value = "performance", havingValue = "true", matchIfMissing = true)
 public class PerformanceLogConfiguration {
 

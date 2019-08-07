@@ -1,4 +1,4 @@
-package cn.mklaus.framework.config.exception;
+package cn.mklaus.framework.exception;
 
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.ApplicationContextInitializer;
@@ -6,8 +6,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
 /**
- * @author Mklaus
- * Created on 2018-07-24 上午11:40
+ * @author klaus
+ * @date 2019-08-07 17:44
  */
 public class ErrorControllerRegister implements ApplicationContextInitializer {
     /**

@@ -2,8 +2,13 @@
   "groups": [
     {
       "name": "cn.mklaus.config",
-      "type": "cn.mklaus.framework.config.AutoConfigurationProperties",
-      "sourceType": "cn.mklaus.framework.config.AutoConfigurationProperties"
+      "type": "cn.mklaus.framework.AutoConfigurationProperties",
+      "sourceType": "cn.mklaus.framework.AutoConfigurationProperties"
+    },
+    {
+      "name": "cn.mklaus.response",
+      "type": "cn.mklaus.framework.ResponseProperties",
+      "sourceType": "cn.mklaus.framework.ResponseProperties"
     },
     {
       "name": "cn.mklaus.qiniu",

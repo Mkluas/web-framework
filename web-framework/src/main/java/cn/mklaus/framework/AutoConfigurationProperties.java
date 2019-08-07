@@ -1,4 +1,4 @@
-package cn.mklaus.framework.config;
+package cn.mklaus.framework;
 
 import lombok.Data;
 import org.springframework.beans.BeansException;
@@ -12,26 +12,14 @@ import org.springframework.context.ApplicationContextAware;
  * Created on 2018-03-29 上午10:05
  */
 @Data
-@ConfigurationProperties(
-        prefix = "cn.mklaus.config"
-)
+@ConfigurationProperties(prefix = "cn.mklaus.config")
 public class AutoConfigurationProperties implements ApplicationContextAware {
 
     private String basepackage;
 
     private boolean performance;
 
-    private boolean eventPublisher = true;
-
     private boolean logRequest = true;
-
-    private String errorTemplatePath = "";
-
-    private String error404TemplatePath = "";
-
-    private boolean includeStackTrace = true;
-
-    private boolean showErrorDetail = true;
 
     private boolean useDefaultResourceHandler = true;
 
