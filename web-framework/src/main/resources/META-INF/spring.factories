@@ -4,7 +4,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 cn.mklaus.framework.web.FreeMarkerConfiguration,\
 cn.mklaus.framework.web.WebAutoConfiguration,\
 cn.mklaus.framework.exception.GlobalExceptionHandler,\
-cn.mklaus.framework.config.monitor.PerformanceLogConfiguration,\
-cn.mklaus.framework.config.monitor.WebLogAspect,\
+cn.mklaus.framework.monitor.PerformanceLogConfiguration,\
+cn.mklaus.framework.monitor.WebLogAspect,\
 cn.mklaus.framework.support.Qinius,\
 cn.mklaus.framework.support.Sms

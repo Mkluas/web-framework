@@ -4,8 +4,10 @@ import cn.mklaus.framework.ResponseProperties;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +27,7 @@ import static com.alibaba.fastjson.serializer.SerializerFeature.*;
 @Configuration
 @Import(CustomWebMvcConfigurer.class)
 @EnableConfigurationProperties(ResponseProperties.class)
+@AutoConfigureAfter(HttpMessageConvertersAutoConfiguration.class)
 public class WebAutoConfiguration {
 
     private ResponseProperties responseProperties;

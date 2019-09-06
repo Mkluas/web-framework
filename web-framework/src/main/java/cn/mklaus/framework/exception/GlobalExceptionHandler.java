@@ -23,6 +23,18 @@ public class GlobalExceptionHandler {
 
     private final static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @ExceptionHandler(value = NullPointerException.class)
+    public Response missingServletRequestParameter(NullPointerException e, HttpServletRequest req) {
+        String errMsg = e.getMessage();
+        if (Objects.isNull(errMsg) || errMsg.length() == 0) {
+            if (e.getStackTrace().length > 0) {
+                errMsg = e.getStackTrace()[0].toString();
+            }
+        }
+
+        return internalHandler("空指针异常：" + errMsg, e);
+    }
+
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
     public Response missingServletRequestParameter(MissingServletRequestParameterException e, HttpServletRequest req) {
         return internalHandler("缺少参数：" + e.getParameterName(), e);

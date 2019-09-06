@@ -1,4 +1,4 @@
-package cn.mklaus.framework.config.monitor;
+package cn.mklaus.framework.monitor;
 
 import cn.mklaus.framework.AutoConfigurationProperties;
 import org.aspectj.lang.ProceedingJoinPoint;

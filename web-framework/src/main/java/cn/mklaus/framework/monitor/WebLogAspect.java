@@ -1,4 +1,4 @@
-package cn.mklaus.framework.config.monitor;
+package cn.mklaus.framework.monitor;
 
 import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;

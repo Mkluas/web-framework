@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author klaus
- * @date 2019-08-07 15:33
+ * Created on 2019-08-07 15:33
  */
 @Data
 @ConfigurationProperties(prefix = "cn.mklaus.response")

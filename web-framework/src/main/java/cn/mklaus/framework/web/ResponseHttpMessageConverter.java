@@ -2,8 +2,6 @@ package cn.mklaus.framework.web;
 
 import cn.mklaus.framework.ResponseProperties;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -20,8 +18,6 @@ import java.util.List;
  * @date 2019-08-06 22:24
  */
 public class ResponseHttpMessageConverter implements HttpMessageConverter<Response> {
-
-    private Logger logger = LoggerFactory.getLogger(ResponseHttpMessageConverter.class);
 
     private ResponseProperties responseProperties;
     private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
@@ -53,7 +49,6 @@ public class ResponseHttpMessageConverter implements HttpMessageConverter<Respon
 
     @Override
     public void write(Response response, MediaType mediaType, HttpOutputMessage httpOutputMessage) throws IOException, HttpMessageNotWritableException {
-        logger.info("Response http convert: " + response.build(this.responseProperties).toJSONString());
         this.fastJsonHttpMessageConverter.write(response.build(this.responseProperties), mediaType, httpOutputMessage);
     }
 
