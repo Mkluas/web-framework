@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  * @author klaus
- * @date 2019-08-06 18:09
+ * Created on 2019-08-06 18:09
  */
 @Configuration
 public class CustomWebMvcConfigurer implements WebMvcConfigurer {

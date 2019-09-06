@@ -22,7 +22,7 @@ import static com.alibaba.fastjson.serializer.SerializerFeature.*;
 
 /**
  * @author klaus
- * @date 2019-08-07 16:23
+ * Created on 2019-08-07 16:23
  */
 @Configuration
 @Import(CustomWebMvcConfigurer.class)

@@ -7,7 +7,7 @@ import org.springframework.web.context.support.GenericWebApplicationContext;
 
 /**
  * @author klaus
- * @date 2019-08-07 17:44
+ * Created on 2019-08-07 17:44
  */
 public class ErrorControllerRegister implements ApplicationContextInitializer {
     /**

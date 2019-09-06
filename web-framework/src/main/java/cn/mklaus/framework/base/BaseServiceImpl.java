@@ -38,6 +38,11 @@ public abstract class BaseServiceImpl<T extends Entity> extends EntityService<T>
      *=====================================================
      */
 
+    /**
+     * fetch
+     * @param id id
+     * @return T
+     */
     public T fetch(int id) {
         return this.dao().fetch(this.getEntityClass(), id);
     }
@@ -164,6 +169,11 @@ public abstract class BaseServiceImpl<T extends Entity> extends EntityService<T>
      *=====================================================
      */
 
+    /**
+     * insert
+     * @param t t
+     * @return T
+     */
     public T insert(T t) {
         return this.dao().insert(t);
     }
@@ -178,6 +188,11 @@ public abstract class BaseServiceImpl<T extends Entity> extends EntityService<T>
      *=====================================================
      */
 
+    /**
+     * update
+     * @param obj obj
+     * @return 成功条数
+     */
     public int update(T obj) {
         obj.refreshUpdateTime();
         return this.dao().update(obj);
@@ -215,6 +230,11 @@ public abstract class BaseServiceImpl<T extends Entity> extends EntityService<T>
      *=====================================================
      */
 
+    /**
+     * delete
+     * @param id id
+     * @return int
+     */
     public int delete(int id) {
         return this.dao().delete(getEntityClass(), id);
     }

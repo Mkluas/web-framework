@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * @author klaus
- * @date 2019-08-05 23:42
+ * Created on 2019-08-05 23:42
  */
 @Controller
 @RequestMapping({"${server.error.path:${error.path:/error}}"})

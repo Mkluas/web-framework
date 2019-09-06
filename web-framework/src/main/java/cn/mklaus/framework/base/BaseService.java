@@ -22,6 +22,11 @@ public interface BaseService<T extends Entity> {
      *=====================================================
      */
 
+    /**
+     * fetch
+     * @param id id
+     * @return T
+     */
     T fetch(int id);
 
     T fetch(String name);
@@ -62,6 +67,11 @@ public interface BaseService<T extends Entity> {
      *=====================================================
      */
 
+    /**
+     * insert
+     * @param t t
+     * @return T
+     */
     T insert(T t);
 
     T fastInsert(T t);
@@ -72,6 +82,11 @@ public interface BaseService<T extends Entity> {
      *=====================================================
      */
 
+    /**
+     * update
+     * @param obj obj
+     * @return int 更新条数
+     */
     int update(T obj);
 
     int update(T obj, FieldFilter fieldFilter);
@@ -90,6 +105,11 @@ public interface BaseService<T extends Entity> {
      *=====================================================
      */
 
+    /**
+     * delete
+     * @param id id
+     * @return 影响条数
+     */
     int delete(int id);
 
     int delete(Object obj);

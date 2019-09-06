@@ -6,7 +6,7 @@ import org.nutz.dao.entity.annotation.*;
 
 /**
  * @author klaus
- * @date 2018/12/19 9:36 AM
+ * Created on 2018/12/19 9:36 AM
  */
 @Data
 @ToString
