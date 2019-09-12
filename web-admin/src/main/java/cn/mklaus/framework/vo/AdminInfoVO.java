@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class AdminInfoVO {
 
-    @ApiModelProperty(value = "adminId, 更新管理员时必填")
+    @ApiModelProperty(value = "adminId, 更新管理员时必填", example = "1")
     @NotNull(groups = {Update.class}, message = "adminId不能为空")
     private Integer adminId;
 

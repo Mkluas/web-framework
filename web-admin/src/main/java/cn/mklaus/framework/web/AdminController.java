@@ -35,7 +35,7 @@ public class AdminController {
     @ApiOperation("根据adminId获取管理员")
     @GetMapping("get")
     @ResponseBody
-    public Response getAdmin(@RequestParam Integer adminId) {
+    public Response getAdmin(@ApiParam(example = "1") @RequestParam Integer adminId) {
         AdminDTO adminDTO = adminService.getAdmin(adminId);
         return Response.ok().put("admin", adminDTO);
     }
@@ -67,7 +67,7 @@ public class AdminController {
     @ApiOperation("删除管理员")
     @PostMapping("remove")
     @ResponseBody
-    public Response removeAdmin(@RequestParam Integer adminId) {
+    public Response removeAdmin(@ApiParam(example = "1") @RequestParam Integer adminId) {
         ServiceResult result = adminService.removeAdmin(adminId);
         return Response.with(result);
     }
@@ -75,7 +75,7 @@ public class AdminController {
     @ApiOperation("重置密码")
     @PostMapping(value = "resetpassword")
     @ResponseBody
-    public Response resetPassword(@RequestParam Integer adminId) {
+    public Response resetPassword(@ApiParam(example = "1") @RequestParam Integer adminId) {
         ServiceResult result = adminService.resetPassword(adminId);
         return Response.with(result);
     }
@@ -83,7 +83,8 @@ public class AdminController {
     @ApiOperation("禁止登录")
     @PostMapping(value = "forbid")
     @ResponseBody
-    public Response forbid(@RequestParam Integer adminId, @ApiParam(required = true, value = "true or false") @RequestParam Boolean forbid) {
+    public Response forbid(@ApiParam(example = "1") @RequestParam Integer adminId,
+                           @ApiParam(required = true, value = "true or false") @RequestParam Boolean forbid) {
         ServiceResult result = adminService.changeForbid(adminId, forbid);
         return Response.with(result);
     }

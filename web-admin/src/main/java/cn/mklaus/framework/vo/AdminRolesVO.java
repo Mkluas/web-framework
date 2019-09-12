@@ -18,7 +18,7 @@ import java.util.List;
 @ToString
 public class AdminRolesVO {
 
-    @ApiModelProperty(value = "adminId", required = true)
+    @ApiModelProperty(value = "adminId", required = true, example = "1")
     @NotNull(message = "adminId不能为空")
     private Integer adminId;
 
