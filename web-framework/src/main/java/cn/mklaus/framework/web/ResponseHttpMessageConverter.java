@@ -29,7 +29,7 @@ public class ResponseHttpMessageConverter implements HttpMessageConverter<Respon
 
     @Override
     public boolean canRead(Class<?> aClass, MediaType mediaType) {
-        return true;
+        return Response.class == aClass;
     }
 
     @Override

@@ -1,4 +1,9 @@
 {
   "groups": [
+    {
+      "name": "cn.mklaus.shiro",
+      "type": "cn.mklaus.framework.shiro.ShiroConfigProperties",
+      "sourceType": "cn.mklaus.framework.shiro.ShiroConfigProperties"
+    }
   ]
 }

@@ -1,6 +1,7 @@
 package cn.mklaus.framework.exception;
 
 import cn.mklaus.framework.ResponseProperties;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -50,21 +51,21 @@ public class DefaultErrorController extends AbstractErrorController {
 
     @RequestMapping(produces = {"text/html"})
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-        logger.error("handle error html");
         HttpStatus status = this.getStatus(request);
         Map<String, Object> model = Collections.unmodifiableMap(this.getErrorAttributes(request, this.isIncludeStackTrace(request, MediaType.TEXT_HTML)));
         response.setStatus(status.value());
         ModelAndView modelAndView = this.resolveErrorView(request, response, status, model);
+        logger.error(model.getOrDefault("message", new JSONObject(model).toJSONString()).toString());
         return modelAndView != null ? modelAndView : new ModelAndView("error", model);
     }
 
     @RequestMapping
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
-        logger.error("handle error json");
         Map<String, Object> body = this.getErrorAttributes(request, this.isIncludeStackTrace(request, MediaType.ALL));
         HttpStatus status = this.getStatus(request);
         body.put(responseProperties.getErrCodeKey(), 1);
         body.put(responseProperties.getErrMsgKey(), body.getOrDefault("message", "CustomErrorController: unknown err"));
+        logger.error(body.getOrDefault("message", new JSONObject(body).toJSONString()).toString());
         return new ResponseEntity(body, status);
     }
 

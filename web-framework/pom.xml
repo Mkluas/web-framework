@@ -44,6 +44,12 @@
             <groupId>com.googlecode.rapid-framework</groupId>
             <artifactId>rapid-core</artifactId>
             <version>4.0.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -56,7 +62,6 @@
             <groupId>org.nutz</groupId>
             <artifactId>nutz-plugins-spring-boot-starter</artifactId>
             <version>${nutz.version}</version>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
