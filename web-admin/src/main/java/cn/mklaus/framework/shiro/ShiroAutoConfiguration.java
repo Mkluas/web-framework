@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * @author klaus
- * @date 2019-09-11 20:30
+ * Created on 2019-09-11 20:30
  */
 @Configuration
 @EnableConfigurationProperties({ShiroConfigProperties.class, ResponseProperties.class})
@@ -92,6 +92,8 @@ public class ShiroAutoConfiguration {
      * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),
      * 需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
      * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
+     *
+     * @return DefaultAdvisorAutoProxyCreator
      */
     @Bean
     @ConditionalOnBean(LifecycleBeanPostProcessor.class)

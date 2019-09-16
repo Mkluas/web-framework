@@ -13,16 +13,21 @@ import cn.mklaus.framework.vo.PasswdVO;
 
 /**
  * @author klaus
- * @date 2019-09-11 23:32
+ * Created on 2019-09-11 23:32
  */
 public interface AdminService extends BaseService<Admin> {
 
+    /**
+     * get admin by account
+     * @param account account
+     * @return Admin
+     */
     Admin getByAccount(String account);
 
     /**
      * 获取指定ID的管理员信息
      * @param adminId   管理员ID
-     * @return
+     * @return AdminDTO
      */
     AdminDTO getAdmin(int adminId);
 
@@ -35,14 +40,15 @@ public interface AdminService extends BaseService<Admin> {
 
     /**
      * 获取管理员列表
-     * PageVo
-     * @return  分页与列表模型
+     * @param pageVO pageVO
+     * @return 分页与列表模型
      */
     Pagination listAdmin(PageVO pageVO);
 
     /**
      * 更新管理员信息
      * @param vo   管理员信息VO
+     * @param adminId adminId
      * @return 业务结果
      */
     ServiceResult updateAdmin(AdminInfoVO vo, int adminId);
@@ -73,7 +79,7 @@ public interface AdminService extends BaseService<Admin> {
      * 禁止登录
      * @param adminId   adminID
      * @param forbid    禁止
-     * @return
+     * @return  业务结果
      */
     ServiceResult changeForbid(int adminId, boolean forbid);
 
@@ -81,7 +87,7 @@ public interface AdminService extends BaseService<Admin> {
     /**
      * 更新角色
      * @param vo vo
-     * @return
+     * @return 业务结果
      */
     ServiceResult updateRoles(AdminRolesVO vo);
 

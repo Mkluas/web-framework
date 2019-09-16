@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * @author klaus
- * @date 2019-09-11 17:45
+ * Created on 2019-09-11 17:45
  */
 @Data
 @ConfigurationProperties(prefix = "cn.mklaus.shiro")

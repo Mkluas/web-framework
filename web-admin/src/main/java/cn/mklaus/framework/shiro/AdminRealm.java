@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 
 /**
  * @author klaus
- * @date 2019-09-11 23:22
+ * Created on 2019-09-11 23:22
  */
 public class AdminRealm extends AuthorizingRealm {
 

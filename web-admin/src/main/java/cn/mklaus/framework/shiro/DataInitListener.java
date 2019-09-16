@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Mklaus
- * @date 2018-02-27 下午4:14
+ * Created on 2018-02-27 下午4:14
  */
 @Service
 @ConditionalOnProperty(prefix = "cn.mklaus.shiro.init", value = "true", matchIfMissing = true)

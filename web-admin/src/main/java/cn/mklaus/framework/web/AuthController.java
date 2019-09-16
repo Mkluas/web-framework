@@ -25,7 +25,7 @@ import static org.apache.shiro.web.util.WebUtils.SAVED_REQUEST_KEY;
 
 /**
  * @author klaus
- * @date 2019-09-11 19:16
+ * Created on 2019-09-11 19:16
  */
 @Api(value = "AuthController", tags = {"后台认证登录接口" })
 @RestController

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  * @author klaus
- * @date 2019-09-12 12:20
+ * Created on 2019-09-12 12:20
  */
 public class ShiroPermissionFilter extends PermissionsAuthorizationFilter {
 
