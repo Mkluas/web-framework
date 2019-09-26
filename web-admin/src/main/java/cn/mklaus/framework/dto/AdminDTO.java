@@ -21,6 +21,7 @@ public class AdminDTO {
         this.username = admin.getUsername();
         this.mobile = admin.getMobile();
         this.email = admin.getEmail();
+        this.avatar = admin.getAvatar();
         this.roles = admin.getRoles();
         this.forbid = admin.getForbid();
         this.createTime = admin.getCreateTime();
@@ -36,6 +37,8 @@ public class AdminDTO {
     private String mobile;
 
     private String email;
+
+    private String avatar;
 
     private List<String> roles;
 
