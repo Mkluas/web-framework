@@ -5,6 +5,7 @@ import cn.mklaus.framework.dto.AdminDTO;
 import cn.mklaus.framework.entity.Admin;
 import cn.mklaus.framework.service.AdminService;
 import cn.mklaus.framework.vo.AdminCreateVO;
+import cn.mklaus.framework.vo.AdminInfoVO;
 import cn.mklaus.framework.vo.AdminRolesVO;
 import com.alibaba.fastjson.JSONArray;
 import org.nutz.dao.Cnd;
@@ -46,6 +47,11 @@ public class DataInitListener implements ApplicationListener<ContextRefreshedEve
             cvo.setAccount("admin");
             cvo.setPassword(shiroConfigProperties.getDefaultAdminPassword());
             AdminDTO adminDTO = adminService.saveAdmin(cvo).getData().getObject("admin", AdminDTO.class);
+
+            AdminInfoVO infoVO = new AdminInfoVO();
+            infoVO.setAdminId(adminDTO.getId());
+            infoVO.setUsername("超级管理员");
+            adminService.updateAdmin(infoVO, adminDTO.getId());
 
             AdminRolesVO rvo = new AdminRolesVO();
             JSONArray roles = new JSONArray();

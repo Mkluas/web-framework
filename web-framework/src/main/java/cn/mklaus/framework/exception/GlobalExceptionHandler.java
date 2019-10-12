@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     private final static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = NullPointerException.class)
-    public Response missingServletRequestParameter(NullPointerException e, HttpServletRequest req) {
+    public Response nullPointerException(NullPointerException e, HttpServletRequest req) {
         String errMsg = e.getMessage();
         if (Objects.isNull(errMsg) || errMsg.length() == 0) {
             if (e.getStackTrace().length > 0) {
@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(SQLException.class)
-    public Response missingServletRequestParameter(SQLException e) {
+    public Response handleSQLException(SQLException e) {
         String errMsg = 1366 == e.getErrorCode() ? "Emoji保存失败" : e.getMessage();
         return internalHandler(errMsg, e);
     }

@@ -52,7 +52,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     public Pagination listAdmin(PageVO pageVO) {
         Condition condition = Strings.isBlank(pageVO.getKey()) ?
                 null :
-                Cnd.where("username|account|mobile", "like", wrapSearchKey(pageVO.getKey()));
+                Cnd.where("concat(username,account,mobile)", "like", wrapSearchKey(pageVO.getKey()));
         FieldMatcher matcher = FieldMatcher.make("", "^password|salt$", true);
         Pagination pagination = listPage(condition, matcher, pageVO.toPager());
         pagination.setList(AdminDTO.toList(pagination.getList()));
@@ -136,6 +136,9 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     public ServiceResult changeForbid(int adminId, boolean forbid) {
         Admin admin = fetch(adminId);
         Assert.notNull(admin, "管理员不存在");
+        if ("admin".equals(admin.getAccount())) {
+            return ServiceResult.error("不能禁止超级管理员");
+        }
 
         admin.setForbid(forbid);
         update(admin);

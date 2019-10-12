@@ -1,12 +1,11 @@
 package cn.mklaus.framework.web;
 
 import cn.mklaus.framework.bean.ServiceResult;
-import cn.mklaus.framework.dto.AdminDTO;
 import cn.mklaus.framework.entity.Admin;
 import cn.mklaus.framework.exception.BaseErrorEnum;
+import cn.mklaus.framework.service.AdminService;
 import cn.mklaus.framework.service.AuthService;
 import cn.mklaus.framework.vo.AdminLoginVO;
-import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -34,26 +33,28 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+    @Autowired
+    private AdminService adminService;
 
     @ApiOperation("登录")
     @PostMapping("login")
-    public JSONObject login(@Valid AdminLoginVO vo) {
+    public Response login(@Valid AdminLoginVO vo) {
         ServiceResult result = authService.login(vo);
-        return Response.with(result).build();
+        return Response.with(result);
     }
 
     @ApiOperation("登出")
     @PostMapping("logout")
-    public JSONObject logout() {
+    public Response logout() {
         SecurityUtils.getSubject().logout();
-        return Response.ok().build();
+        return Response.ok();
     }
 
     @ApiOperation("当前已登录管理员")
     @GetMapping("me")
-    public JSONObject me() {
-        Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
-        return Response.ok().put("admin", new AdminDTO(admin)).build();
+    public Response me() {
+        Admin me = (Admin) SecurityUtils.getSubject().getPrincipal();
+        return Response.ok().put("admin", adminService.getAdmin(me.getId()));
     }
 
     @ApiIgnore
