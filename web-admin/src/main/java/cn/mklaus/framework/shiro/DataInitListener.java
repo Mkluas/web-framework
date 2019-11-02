@@ -51,6 +51,7 @@ public class DataInitListener implements ApplicationListener<ContextRefreshedEve
             AdminInfoVO infoVO = new AdminInfoVO();
             infoVO.setAdminId(adminDTO.getId());
             infoVO.setUsername("超级管理员");
+            infoVO.setAvatar("http://img.chuangcifang.com/xie.jpg");
             adminService.updateAdmin(infoVO, adminDTO.getId());
 
             AdminRolesVO rvo = new AdminRolesVO();
