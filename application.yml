@@ -1,0 +1,31 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/xxx?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=TRUE&useSSL=false
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+nutz:
+  dao:
+    runtime:
+      delete-column: false
+      basepackage: cn.mklaus.app.entity, cn.mklaus.app.backend.entity
+
+cn:
+  mklaus:
+    wechat:
+      ma:
+        app-id:
+        secret:
+        notifyUri: /api/order/pay/notify
+        domain: https://mklaus.cn
+      pay:
+        mch-id:
+        mch-key:
+        key-path: classpath:/apiclient_cert.p12
+    shiro:
+      filters: {authc: /api/admin/**}
