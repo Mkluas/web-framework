@@ -3,10 +3,16 @@ package cn.mklaus.framework.wechat;
 import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
+import org.nutz.lang.Strings;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.core.env.Environment;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import javax.annotation.Resource;
 
@@ -26,13 +32,15 @@ public class WechatPayConfiguration {
     private WechatProperties.Pay pay;
 
     @Bean("wxMpPayService")
-    @ConditionalOnProperty(prefix = "cn.mklaus.wechat.mp", value = "notifyUri")
-    public WxPayService wxPayService() {
+    @Conditional({NotifyUrlCondition.class})
+    public WxPayService wxMpPayService() {
+        System.out.println("init WxMpPay ");
         WxPayConfig config = new WxPayConfig();
 
         config.setAppId(mp.getAppId());
         config.setNotifyUrl(mp.getPayNotifyUrl());
 
+        pay.validate();
         config.setMchId(pay.getMchId());
         config.setMchKey(pay.getMchKey());
         config.setKeyPath(pay.getKeyPath());
@@ -43,10 +51,12 @@ public class WechatPayConfiguration {
     }
 
     @Bean("wxMaPayService")
-    @ConditionalOnProperty(prefix = "cn.mklaus.wechat.ma", value = "notifyUri")
+    @ConditionalOnProperty(prefix = "cn.mklaus.wechat.ma", value = "domain")
     public WxPayService wxMaPayService() {
+        System.out.println("init WxMaPay ");
         WxPayConfig config = new WxPayConfig();
 
+        pay.validate();
         config.setMchId(pay.getMchId());
         config.setMchKey(pay.getMchKey());
         config.setKeyPath(pay.getKeyPath());
@@ -57,6 +67,24 @@ public class WechatPayConfiguration {
         WxPayService wxPayService = new WxPayServiceImpl();
         wxPayService.setConfig(config);
         return wxPayService;
+    }
+
+
+    private static class NotifyUrlCondition implements Condition {
+
+        @Override
+        public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+            Environment environment = conditionContext.getEnvironment();
+            String urlOne = environment.getProperty("cn.mklaus.wechat.mp.notify-url");
+            String urlTwo = environment.getProperty("cn.mklaus.wechat.mp.notifyUrl");
+            System.out.println("urlOne = " + urlOne);
+            System.out.println("urlTwo = " + urlTwo);
+            if (Strings.isNotBlank(urlOne) || Strings.isNotBlank(urlTwo)) {
+                return true;
+            }
+            return false;
+        }
+
     }
 
 }

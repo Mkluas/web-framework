@@ -2,6 +2,7 @@ package cn.mklaus.framework.wechat;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.Assert;
 
 /**
  * @author Mklaus
@@ -20,7 +21,12 @@ public class WechatProperties {
 
         private String mchKey;
 
-        private String keyPath;
+        private String keyPath = "classpath:/apiclient_cert.p12";
+
+        public void validate() {
+            Assert.hasLength(mchId, "mchId 不能为空");
+            Assert.hasLength(mchKey, "mchKey 不能为空");
+        }
 
     }
 
@@ -44,6 +50,8 @@ public class WechatProperties {
         private String notifyUri;
 
         public String getPayNotifyUrl() {
+            Assert.hasLength(domain, "domain 不能为空");
+            Assert.hasLength(notifyUri, "notifyUri 不能为空");
             return this.domain + this.notifyUri;
         }
 
@@ -64,6 +72,8 @@ public class WechatProperties {
         private String notifyUri;
 
         public String getPayNotifyUrl() {
+            Assert.hasLength(domain, "domain 不能为空");
+            Assert.hasLength(notifyUri, "notifyUri 不能为空");
             return this.domain + this.notifyUri;
         }
 
