@@ -96,7 +96,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     @Override
     public ServiceResult removeAdmin(int adminId) {
         Admin current = (Admin) SecurityUtils.getSubject().getPrincipal();
-        Assert.state(adminId == current.getId(), "不能删除自己");
+        Assert.state(adminId != current.getId(), "不能删除自己");
         Admin admin = fetch(adminId);
         Assert.notNull(admin, "管理员不存在");
         Assert.state(!"admin".equals(admin.getAccount()),"不能删除超级管理员");
