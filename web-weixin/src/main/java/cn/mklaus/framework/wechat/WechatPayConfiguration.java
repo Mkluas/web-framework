@@ -53,7 +53,6 @@ public class WechatPayConfiguration {
     @Bean("wxMaPayService")
     @ConditionalOnProperty(prefix = "cn.mklaus.wechat.ma", value = "domain")
     public WxPayService wxMaPayService() {
-        System.out.println("init WxMaPay ");
         WxPayConfig config = new WxPayConfig();
 
         pay.validate();
@@ -77,8 +76,6 @@ public class WechatPayConfiguration {
             Environment environment = conditionContext.getEnvironment();
             String urlOne = environment.getProperty("cn.mklaus.wechat.mp.notify-url");
             String urlTwo = environment.getProperty("cn.mklaus.wechat.mp.notifyUrl");
-            System.out.println("urlOne = " + urlOne);
-            System.out.println("urlTwo = " + urlTwo);
             if (Strings.isNotBlank(urlOne) || Strings.isNotBlank(urlTwo)) {
                 return true;
             }
