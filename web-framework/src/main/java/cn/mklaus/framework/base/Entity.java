@@ -4,13 +4,17 @@ import lombok.Data;
 import lombok.ToString;
 import org.nutz.dao.entity.annotation.*;
 
+import java.io.Serializable;
+
 /**
  * @author klaus
  * Created on 2018/12/19 9:36 AM
  */
 @Data
 @ToString
-public abstract class Entity<T> {
+public abstract class Entity<T> implements Serializable {
+
+    private static final Long serialVersionUID = 18027247255L;
 
     @Id
     protected Integer id;

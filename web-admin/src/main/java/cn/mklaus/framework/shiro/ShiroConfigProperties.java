@@ -74,7 +74,7 @@ public class ShiroConfigProperties {
         admin.put(adminPrefix + "/forbid", permission);
         admin.put(adminPrefix + "/roles", permission);
         admin.put(adminPrefix + "/resetpassword", permission);
-        admin.put(adminPrefix + "/**", "authc");
+        admin.put(adminPrefix + "/**", "user");
         return admin;
     }
 
@@ -110,9 +110,9 @@ public class ShiroConfigProperties {
 
 
         Map<String, String> suffix = new LinkedHashMap<>();
-        suffix.put("/api/auth/me", "authc");
-        suffix.put("/api/auth/logout", "authc");
-        suffix.put("/api/backend/**", "authc");
+        suffix.put("/api/auth/me", "user");
+        suffix.put("/api/auth/logout", "user");
+        suffix.put("/api/backend/**", "user");
 
         DEFAULT_SUFFIX_FILTER_MAP = suffix;
     }
