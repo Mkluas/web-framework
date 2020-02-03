@@ -1,8 +1,8 @@
 package cn.mklaus.framework.wechat;
 
-import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
+import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class WechatMpConfiguration {
 
     @Bean
     public WxMpService wxMpService() {
-        WxMpInMemoryConfigStorage storage = new WxMpInMemoryConfigStorage();
+        WxMpDefaultConfigImpl storage = new WxMpDefaultConfigImpl();
         storage.setAppId(mp.getAppId());
         storage.setSecret(mp.getSecret());
         storage.setToken(mp.getToken());

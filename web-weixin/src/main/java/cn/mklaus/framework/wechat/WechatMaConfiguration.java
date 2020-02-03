@@ -2,7 +2,7 @@ package cn.mklaus.framework.wechat;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
-import cn.binarywang.wx.miniapp.config.WxMaInMemoryConfig;
+import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class WechatMaConfiguration {
 
     @Bean
     public WxMaService wxMaService() {
-        WxMaInMemoryConfig config = new WxMaInMemoryConfig();
+        WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
         config.setAppid(ma.getAppId());
         config.setSecret(ma.getSecret());
         config.setMsgDataFormat(ma.getMsgDataFormat());
