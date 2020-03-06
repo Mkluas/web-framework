@@ -134,14 +134,18 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
     }
 
 
-    private boolean requestAuthCode(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-        String queryString = isBlank(req.getQueryString()) ? "" : "?" + req.getQueryString();
-        String thisUrl = mp.getDomain() + req.getRequestURI() + queryString;
-        String url = this.getWxMpService().oauth2buildAuthorizationUrl(thisUrl, "snsapi_userinfo", "state");
+    protected boolean requestAuthCode(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+        String url = generateAuthUrl(req);
         resp.sendRedirect(url);
         return false;
     }
 
+    protected String generateAuthUrl(HttpServletRequest req) {
+        String queryString = isBlank(req.getQueryString()) ? "" : "?" + req.getQueryString();
+        String thisUrl = mp.getDomain() + req.getRequestURI() + queryString;
+        String url = this.getWxMpService().oauth2buildAuthorizationUrl(thisUrl, "snsapi_userinfo", "state");
+        return url;
+    }
 
     private static boolean isBlank(String s) {
         return s == null || s.trim().length() == 0;
@@ -160,7 +164,7 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
             this.unionid = unionid;
         }
 
-        private boolean hasToken() {
+        public boolean hasToken() {
             return isNotBlank(openid) || isNotBlank(unionid);
         }
 

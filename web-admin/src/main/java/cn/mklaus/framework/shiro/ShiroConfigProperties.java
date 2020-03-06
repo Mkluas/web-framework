@@ -17,23 +17,38 @@ public class ShiroConfigProperties {
     private static Map<String, String> DEFAULT_PREFIX_FILTER_MAP;
     private static Map<String, String> DEFAULT_SUFFIX_FILTER_MAP;
 
-    private boolean usePrefixFilter = true;
-    private boolean useSuffixFilter = true;
-    private boolean useAdminRolesFilter = true;
+    private boolean usePrefixFilter;
+    private boolean useSuffixFilter;
+    private boolean useAdminRolesFilter;
     private Map<String, String> filters;
 
 
-    private String authPrefix = "/api/auth";
-    private String loginUrl = authPrefix+ "/error";
-    private String unauthorizedUrl = authPrefix + "/403";
-    private String adminPrefix = "/api/backend/admin";
+    private String authPrefix;
+    private String loginUrl;
+    private String unauthorizedUrl;
+    private String adminPrefix;
 
 
-    private String superRole = "root";
-    private String defaultAdminPassword = "12345678";
-    private String hashAlgorithmName = "md5";
-    private int hashIterations = 2;
+    private String superRole;
+    private String defaultAdminPassword;
+    private String hashAlgorithmName;
+    private int hashIterations;
 
+    public ShiroConfigProperties() {
+        this.usePrefixFilter = true;
+        this.useSuffixFilter = true;
+        this.useAdminRolesFilter = true;
+
+        this.authPrefix = "/api/auth";
+        this.loginUrl = this.authPrefix+ "/error";
+        this.unauthorizedUrl = this.authPrefix + "/403";
+        this.adminPrefix = "/api/backend/admin";
+
+        this.superRole = "root";
+        this.defaultAdminPassword = "12345678";
+        this.hashAlgorithmName = "md5";
+        this.hashIterations = 2;
+    }
 
     public Map<String, String> getFilterMap() {
         Map<String, String> map = new LinkedHashMap<>();
