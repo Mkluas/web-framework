@@ -74,8 +74,8 @@ public class WechatPayConfiguration {
         @Override
         public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
             Environment environment = conditionContext.getEnvironment();
-            String urlOne = environment.getProperty("cn.mklaus.wechat.mp.notify-url");
-            String urlTwo = environment.getProperty("cn.mklaus.wechat.mp.notifyUrl");
+            String urlOne = environment.getProperty("cn.mklaus.wechat.mp.notify-uri");
+            String urlTwo = environment.getProperty("cn.mklaus.wechat.mp.notifyUri");
             if (Strings.isNotBlank(urlOne) || Strings.isNotBlank(urlTwo)) {
                 return true;
             }
