@@ -124,8 +124,12 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
                 Https.setCookie(resp, WECHAT_OPENID,  mpUser.getOpenId(), this.cookieTime);
                 Https.setCookie(resp, WECHAT_UNIONID, mpUser.getUnionId(), this.cookieTime);
                 T user = this.getOrCreateByWxMpUser(mpUser);
-                saveUserContext(user, req);
-                return true;
+                if (this.handleSuccessGetUser(req, resp)) {
+                    saveUserContext(user, req);
+                    return true;
+                } else {
+                    return false;
+                }
             } catch (WxErrorException e) {
                 log.error("Request access token: {}", e.getMessage());
                 return (e.getError().getErrorCode() == 40029) && requestAuthCode(req, resp);
@@ -133,6 +137,9 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
         }
     }
 
+    protected boolean handleSuccessGetUser(HttpServletRequest req, HttpServletResponse resp) {
+        return true;
+    }
 
     protected boolean requestAuthCode(HttpServletRequest req, HttpServletResponse resp) throws Exception{
         String url = generateAuthUrl(req);
