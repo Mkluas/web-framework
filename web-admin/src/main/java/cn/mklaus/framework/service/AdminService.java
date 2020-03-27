@@ -43,7 +43,7 @@ public interface AdminService extends BaseService<Admin> {
      * @param pageVO pageVO
      * @return 分页与列表模型
      */
-    Pagination listAdmin(PageVO pageVO);
+    Pagination listAdmin(Boolean forbid, PageVO pageVO);
 
     /**
      * 更新管理员信息

@@ -43,8 +43,8 @@ public class AdminController {
     @ApiOperation("管理员列表")
     @GetMapping("list")
     @ResponseBody
-    public Response listAdmin(@Valid PageVO pageVO) {
-        Pagination pagination = adminService.listAdmin(pageVO);
+    public Response listAdmin(@Valid PageVO pageVO, Boolean forbid) {
+        Pagination pagination = adminService.listAdmin(forbid, pageVO);
         return Response.ok().put("pager", pagination);
     }
 

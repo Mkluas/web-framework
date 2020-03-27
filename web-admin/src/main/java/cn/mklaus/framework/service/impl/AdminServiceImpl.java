@@ -20,6 +20,7 @@ import org.nutz.dao.Chain;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.FieldMatcher;
+import org.nutz.dao.util.cri.SimpleCriteria;
 import org.nutz.lang.Strings;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -49,12 +50,18 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     }
 
     @Override
-    public Pagination listAdmin(PageVO pageVO) {
-        Condition condition = Strings.isBlank(pageVO.getKey()) ?
-                null :
-                Cnd.where("concat(username,account,mobile)", "like", wrapSearchKey(pageVO.getKey()));
+    public Pagination listAdmin(Boolean forbid, PageVO pageVO) {
+        SimpleCriteria cri = Cnd.cri();
+
+        if (Strings.isNotBlank(pageVO.getKey())) {
+            cri.where().and("concat(username,account,mobile)", "like", wrapSearchKey(pageVO.getKey()));
+        }
+        if (forbid != null) {
+            cri.where().and("forbid", "=", forbid);
+        }
+
         FieldMatcher matcher = FieldMatcher.make("", "^password|salt$", true);
-        Pagination pagination = listPage(condition, matcher, pageVO.toPager());
+        Pagination pagination = listPage(cri, matcher, pageVO.toPager());
         pagination.setList(AdminDTO.toList(pagination.getList()));
         return pagination;
     }
