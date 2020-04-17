@@ -84,8 +84,12 @@ public class Https {
     }
 
     public static void setCookie(HttpServletResponse resp, String name, String value, int time) {
+        setCookie(resp, name, value, time, false);
+    }
+
+    public static void setCookie(HttpServletResponse resp, String name, String value, int time, boolean httpOnly) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setHttpOnly(true);
+        cookie.setHttpOnly(httpOnly);
         cookie.setPath("/");
         cookie.setMaxAge(time);
         resp.addCookie(cookie);

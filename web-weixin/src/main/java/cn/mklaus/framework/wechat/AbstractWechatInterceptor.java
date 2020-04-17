@@ -30,6 +30,7 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
     private final static int DEFAULT_WECHAT_OPENID_COOKIE_TIME = 3600 * 24 * 30;
 
     private int cookieTime;
+    private boolean httpOnly = false;
 
     @Resource
     private WechatProperties.Mp mp;
@@ -40,6 +41,10 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
 
     public void setCookieTime(int cookieTime) {
         this.cookieTime = cookieTime;
+    }
+
+    public void setHttpOnly(boolean httpOnly) {
+        this.httpOnly = httpOnly;
     }
 
     @Override
@@ -116,15 +121,16 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
         String code = req.getParameter(WECHAT_CODE);
         if (isBlank(code)) {
             log.debug("No auth code, send request and redirect");
-            return requestAuthCode(req, resp);
+            requestAuthCode(req, resp);
+            return false;
         } else {
             try {
                 WxMpOAuth2AccessToken accessToken = this.getWxMpService().oauth2getAccessToken(code);
                 WxMpUser mpUser = this.getWxMpService().oauth2getUserInfo(accessToken, "zh_CN");
-                Https.setCookie(resp, WECHAT_OPENID,  mpUser.getOpenId(), this.cookieTime);
-                Https.setCookie(resp, WECHAT_UNIONID, mpUser.getUnionId(), this.cookieTime);
+                Https.setCookie(resp, WECHAT_OPENID,  mpUser.getOpenId(), this.cookieTime, this.httpOnly);
+                Https.setCookie(resp, WECHAT_UNIONID, mpUser.getUnionId(), this.cookieTime, this.httpOnly);
                 T user = this.getOrCreateByWxMpUser(mpUser);
-                if (this.handleSuccessGetUser(req, resp)) {
+                if (this.handleSuccessGetUser(req, resp, user)) {
                     saveUserContext(user, req);
                     return true;
                 } else {
@@ -132,19 +138,21 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
                 }
             } catch (WxErrorException e) {
                 log.error("Request access token: {}", e.getMessage());
-                return (e.getError().getErrorCode() == 40029) && requestAuthCode(req, resp);
+                if (e.getError().getErrorCode() == 40029) {
+                    requestAuthCode(req, resp);
+                }
+                return false;
             }
         }
     }
 
-    protected boolean handleSuccessGetUser(HttpServletRequest req, HttpServletResponse resp) {
+    protected boolean handleSuccessGetUser(HttpServletRequest req, HttpServletResponse resp, T user) {
         return true;
     }
 
-    protected boolean requestAuthCode(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+    protected void requestAuthCode(HttpServletRequest req, HttpServletResponse resp) throws Exception{
         String url = generateAuthUrl(req);
         resp.sendRedirect(url);
-        return false;
     }
 
     protected String generateAuthUrl(HttpServletRequest req) {

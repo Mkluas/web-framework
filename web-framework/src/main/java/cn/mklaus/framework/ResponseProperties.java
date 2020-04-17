@@ -19,4 +19,6 @@ public class ResponseProperties {
 
     private boolean useDataKey = false;
 
+    private boolean useHttpStatus = false;
+
 }

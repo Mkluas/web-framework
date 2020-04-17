@@ -62,7 +62,7 @@ public class DefaultErrorController extends AbstractErrorController {
     @RequestMapping
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
         Map<String, Object> body = this.getErrorAttributes(request, this.isIncludeStackTrace(request, MediaType.ALL));
-        HttpStatus status = this.getStatus(request);
+        HttpStatus status = responseProperties.isUseDataKey() ? this.getStatus(request) : HttpStatus.OK;
         body.put(responseProperties.getErrCodeKey(), 1);
         body.put(responseProperties.getErrMsgKey(), body.getOrDefault("message", "CustomErrorController: unknown err"));
         logger.error(body.getOrDefault("message", new JSONObject(body).toJSONString()).toString());
