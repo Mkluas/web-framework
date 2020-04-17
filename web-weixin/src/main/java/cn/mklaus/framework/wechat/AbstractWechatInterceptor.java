@@ -24,8 +24,8 @@ public abstract class AbstractWechatInterceptor<T> extends AbstractTokenIntercep
 
     private static Logger log = LoggerFactory.getLogger(AbstractWechatInterceptor.class);
 
-    private final static String WECHAT_OPENID = "WECAHT_OPENID";
-    private final static String WECHAT_UNIONID = "WECAHT_UNIONID";
+    private final static String WECHAT_OPENID = "WECHAT_OPENID";
+    private final static String WECHAT_UNIONID = "WECHAT_UNIONID";
     private final static String WECHAT_CODE = "code";
     private final static int DEFAULT_WECHAT_OPENID_COOKIE_TIME = 3600 * 24 * 30;
 
