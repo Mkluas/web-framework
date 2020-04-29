@@ -1,15 +1,21 @@
 package cn.mklaus.framework.exception;
 
+import cn.mklaus.framework.ResponseProperties;
 import cn.mklaus.framework.web.Response;
 import org.nutz.lang.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.web.ErrorProperties;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -23,8 +29,14 @@ public class GlobalExceptionHandler {
 
     private final static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    private ResponseProperties responseProperties;
+
+    public GlobalExceptionHandler(ResponseProperties responseProperties) {
+        this.responseProperties = responseProperties;
+    }
+
     @ExceptionHandler(value = NullPointerException.class)
-    public Response nullPointerException(NullPointerException e, HttpServletRequest req) {
+    public Response nullPointerException(NullPointerException e, HttpServletRequest req, HttpServletResponse resp) {
         String errMsg = e.getMessage();
         if (Objects.isNull(errMsg) || errMsg.length() == 0) {
             if (e.getStackTrace().length > 0) {
@@ -32,29 +44,32 @@ public class GlobalExceptionHandler {
             }
         }
 
-        return internalHandler("空指针异常：" + errMsg, e);
+        return internalHandler("空指针异常：" + errMsg, e, resp);
     }
 
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
-    public Response missingServletRequestParameter(MissingServletRequestParameterException e, HttpServletRequest req) {
-        return internalHandler("缺少参数：" + e.getParameterName(), e);
+    public Response missingServletRequestParameter(MissingServletRequestParameterException e, HttpServletResponse resp) {
+        return internalHandler("缺少参数：" + e.getParameterName(), e, resp);
     }
 
     @ExceptionHandler(BindException.class)
-    public Response bindException(BindException e, HttpServletRequest req) throws Exception {
+    public Response bindException(BindException e, HttpServletRequest req, HttpServletResponse resp) throws Exception {
         checkIfHtml(new BindException(e.getBindingResult()), req);
         List<ObjectError> errors = e.getAllErrors();
         String errMsg = errors.isEmpty() ? "未知绑定错误" : errors.get(0).getDefaultMessage();
-        return internalHandler(errMsg, e);
+        return internalHandler(errMsg, e, resp);
     }
 
     @ExceptionHandler(SQLException.class)
-    public Response handleSQLException(SQLException e) {
+    public Response handleSQLException(SQLException e, HttpServletResponse resp) {
         String errMsg = 1366 == e.getErrorCode() ? "Emoji保存失败" : e.getMessage();
-        return internalHandler(errMsg, e);
+        return internalHandler(errMsg, e, resp);
     }
 
-    private Response internalHandler(String errMsg, Exception e) {
+    private Response internalHandler(String errMsg, Exception e, HttpServletResponse resp) {
+        if (responseProperties.isUseHttpStatus()) {
+            resp.setStatus(500);
+        }
         logException(e);
         return Response.error(errMsg);
     }
