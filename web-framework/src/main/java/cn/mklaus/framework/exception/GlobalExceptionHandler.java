@@ -5,17 +5,13 @@ import cn.mklaus.framework.web.Response;
 import org.nutz.lang.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.web.ErrorProperties;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
@@ -26,6 +22,7 @@ import java.util.Objects;
  * @author Mklaus
  * Created on 2018-01-03 下午6:11
  */
+@Order
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -49,33 +46,39 @@ public class GlobalExceptionHandler {
             }
         }
 
-        return internalHandler("空指针异常：" + errMsg, e, resp);
+        return internalHandler("空指针异常：" + errMsg, e, req, resp);
     }
 
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
-    public Response missingServletRequestParameter(MissingServletRequestParameterException e, HttpServletResponse resp) {
-        return internalHandler("缺少参数：" + e.getParameterName(), e, resp);
+    public Response missingServletRequestParameter(MissingServletRequestParameterException e, HttpServletRequest req, HttpServletResponse resp) {
+        return internalHandler("缺少参数：" + e.getParameterName(), e, req, resp);
     }
 
     @ExceptionHandler(BindException.class)
     public Response bindException(BindException e, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        checkIfHtml(new BindException(e.getBindingResult()), req);
         List<ObjectError> errors = e.getAllErrors();
         String errMsg = errors.isEmpty() ? "未知绑定错误" : errors.get(0).getDefaultMessage();
-        return internalHandler(errMsg, e, resp);
+        return internalHandler(errMsg, e, req, resp);
     }
 
     @ExceptionHandler(SQLException.class)
-    public Response handleSQLException(SQLException e, HttpServletResponse resp) {
+    public Response handleSQLException(SQLException e, HttpServletRequest req, HttpServletResponse resp) {
         String errMsg = 1366 == e.getErrorCode() ? "Emoji保存失败" : e.getMessage();
-        return internalHandler(errMsg, e, resp);
+        return internalHandler(errMsg, e, req, resp);
     }
 
-    private Response internalHandler(String errMsg, Exception e, HttpServletResponse resp) {
+    @ExceptionHandler(Exception.class)
+    public Response handleException(Exception e, HttpServletRequest req, HttpServletResponse resp) {
+        return internalHandler(e.getMessage(), e, req, resp);
+    }
+
+    private Response internalHandler(String errMsg, Exception e, HttpServletRequest req, HttpServletResponse resp) {
+        logException(e);
+        RuntimeException re = e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
+        checkIfHtml(re, req);
         if (responseProperties.isUseHttpStatus()) {
             resp.setStatus(500);
         }
-        logException(e);
         return Response.error(errMsg);
     }
 
@@ -84,14 +87,9 @@ public class GlobalExceptionHandler {
         exceptionLogger.logger(e);
     }
 
-    @PostConstruct
-    public void setupExceptionLogger() {
-
-    }
-
     private static final String X_REQUESTED_WITH = "x-requested-with";
     private static final String ACCEPT = "accept";
-    private void checkIfHtml(Exception e, HttpServletRequest req) throws Exception {
+    private void checkIfHtml(RuntimeException e, HttpServletRequest req) {
         String xRequestedWith = req.getHeader(X_REQUESTED_WITH);
         String accept = req.getHeader(ACCEPT);
         if (Strings.isBlank(xRequestedWith)
