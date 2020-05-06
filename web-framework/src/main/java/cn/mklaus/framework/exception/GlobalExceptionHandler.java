@@ -14,6 +14,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
@@ -29,10 +31,13 @@ public class GlobalExceptionHandler {
 
     private final static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    private ResponseProperties responseProperties;
+    private final ExceptionLogger exceptionLogger;
 
-    public GlobalExceptionHandler(ResponseProperties responseProperties) {
+    private final ResponseProperties responseProperties;
+
+    public GlobalExceptionHandler(ResponseProperties responseProperties, ExceptionLogger exceptionLogger) {
         this.responseProperties = responseProperties;
+        this.exceptionLogger = exceptionLogger;
     }
 
     @ExceptionHandler(value = NullPointerException.class)
@@ -76,6 +81,12 @@ public class GlobalExceptionHandler {
 
     private void logException(Exception e) {
         logger.error("GlobalExceptionHandler: " + e.getMessage());
+        exceptionLogger.logger(e);
+    }
+
+    @PostConstruct
+    public void setupExceptionLogger() {
+
     }
 
     private static final String X_REQUESTED_WITH = "x-requested-with";
