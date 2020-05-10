@@ -7,7 +7,7 @@
     <groupId>com.github.mkluas</groupId>
     <artifactId>web-framework-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 
     <name>web-framework</name>
     <description>a small web framework base on spring</description>

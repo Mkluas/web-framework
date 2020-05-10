@@ -1,5 +1,6 @@
 package cn.mklaus.framework.service.impl;
 
+import cn.mklaus.framework.base.BaseService;
 import cn.mklaus.framework.bean.PageVO;
 import cn.mklaus.framework.bean.Pagination;
 import cn.mklaus.framework.dto.AdminDTO;
@@ -18,7 +19,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.nutz.dao.Chain;
 import org.nutz.dao.Cnd;
-import org.nutz.dao.Condition;
 import org.nutz.dao.FieldMatcher;
 import org.nutz.dao.util.cri.SimpleCriteria;
 import org.nutz.lang.Strings;
@@ -54,7 +54,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         SimpleCriteria cri = Cnd.cri();
 
         if (Strings.isNotBlank(pageVO.getKey())) {
-            cri.where().and("concat(username,account,mobile)", "like", wrapSearchKey(pageVO.getKey()));
+            cri.where().and("concat(username,account,mobile)", "like", BaseService.wrapSearchKey(pageVO.getKey()));
         }
         if (forbid != null) {
             cri.where().and("forbid", "=", forbid);
