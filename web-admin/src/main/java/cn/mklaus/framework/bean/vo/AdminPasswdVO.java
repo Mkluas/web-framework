@@ -1,4 +1,4 @@
-package cn.mklaus.framework.vo;
+package cn.mklaus.framework.bean.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 @ApiModel
 @Data
 @ToString
-public class PasswdVO {
+public class AdminPasswdVO {
 
     @ApiModelProperty(value = "原密码", required = true)
     @NotBlank(message = "原密码不能为空")

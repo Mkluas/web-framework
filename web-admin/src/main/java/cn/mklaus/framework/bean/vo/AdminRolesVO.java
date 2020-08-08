@@ -1,4 +1,4 @@
-package cn.mklaus.framework.vo;
+package cn.mklaus.framework.bean.vo;
 
 import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.ApiModel;

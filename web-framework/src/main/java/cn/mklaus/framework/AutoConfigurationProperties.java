@@ -15,7 +15,7 @@ import org.springframework.context.ApplicationContextAware;
 @ConfigurationProperties(prefix = "cn.mklaus.config")
 public class AutoConfigurationProperties implements ApplicationContextAware {
 
-    private String basepackage;
+    private String basePackage;
 
     private boolean performance;
 
@@ -25,14 +25,14 @@ public class AutoConfigurationProperties implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        if ((basepackage != null && basepackage.length() > 0)) {
+        if ((basePackage != null && basePackage.length() > 0)) {
             return;
         }
 
         String[] springBootApplicationAnnotations = applicationContext.getBeanNamesForAnnotation(SpringBootApplication.class);
         if (springBootApplicationAnnotations.length > 0) {
             Object bean = applicationContext.getBean(springBootApplicationAnnotations[0]);
-            basepackage = bean.getClass().getPackage().getName();
+            basePackage = bean.getClass().getPackage().getName();
         }
     }
 

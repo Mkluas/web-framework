@@ -1,19 +1,19 @@
 package cn.mklaus.framework.web;
 
-import cn.mklaus.framework.bean.*;
-import cn.mklaus.framework.dto.AdminDTO;
+import cn.mklaus.framework.bean.PageVO;
+import cn.mklaus.framework.bean.Pagination;
+import cn.mklaus.framework.bean.ServiceResult;
+import cn.mklaus.framework.bean.dto.AdminDTO;
+import cn.mklaus.framework.bean.vo.AdminCreateVO;
+import cn.mklaus.framework.bean.vo.AdminPasswdVO;
+import cn.mklaus.framework.bean.vo.AdminRolesVO;
+import cn.mklaus.framework.bean.vo.AdminUpdateVO;
+import cn.mklaus.framework.config.secure.AdminHolder;
 import cn.mklaus.framework.entity.Admin;
 import cn.mklaus.framework.service.AdminService;
-import cn.mklaus.framework.vo.AdminCreateVO;
-import cn.mklaus.framework.vo.AdminInfoVO;
-import cn.mklaus.framework.vo.AdminRolesVO;
-import cn.mklaus.framework.vo.PasswdVO;
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,28 +23,30 @@ import javax.validation.Valid;
  * @author klaus
  * Created on 2019-09-12 00:57
  */
-@Api(value = "AdminController", tags = {"后台管理员接口" })
 @RestController
-@RequestMapping("${cn.mklaus.shiro.admin-prefix:/api/backend/admin}")
+@RequestMapping("/api/backend/admin")
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
 
     @ApiOperation("根据adminId获取管理员")
     @GetMapping("get")
     @ResponseBody
     public Response getAdmin(@ApiParam(example = "1") @RequestParam Integer adminId) {
-        AdminDTO adminDTO = adminService.getAdmin(adminId);
-        return Response.ok().put("admin", adminDTO);
+        Admin admin = adminService.get(adminId);
+        return Response.ok().put("admin", AdminDTO.create(admin));
     }
 
     @ApiOperation("管理员列表")
     @GetMapping("list")
     @ResponseBody
     public Response listAdmin(@Valid PageVO pageVO, Boolean forbid) {
-        Pagination pagination = adminService.listAdmin(forbid, pageVO);
+        Pagination pagination = adminService.page(forbid, pageVO);
         return Response.ok().put("pager", pagination);
     }
 
@@ -52,15 +54,15 @@ public class AdminController {
     @PostMapping("save")
     @ResponseBody
     public Response saveAdmin(@Validated AdminCreateVO vo) {
-        ServiceResult result = adminService.saveAdmin(vo);
+        ServiceResult result = adminService.save(vo);
         return Response.with(result);
     }
 
     @ApiOperation("更新管理员")
     @PostMapping("update")
     @ResponseBody
-    public Response updateAdmin(@Validated(Update.class) AdminInfoVO vo) {
-        ServiceResult result = adminService.updateAdmin(vo, vo.getAdminId());
+    public Response updateAdmin(@Validated AdminUpdateVO vo) {
+        ServiceResult result = adminService.update(vo, vo.getAdminId());
         return Response.with(result);
     }
 
@@ -68,7 +70,7 @@ public class AdminController {
     @PostMapping("remove")
     @ResponseBody
     public Response removeAdmin(@ApiParam(example = "1") @RequestParam Integer adminId) {
-        ServiceResult result = adminService.removeAdmin(adminId);
+        ServiceResult result = adminService.remove(adminId);
         return Response.with(result);
     }
 
@@ -89,7 +91,6 @@ public class AdminController {
         return Response.with(result);
     }
 
-
     @ApiOperation("授予角色")
     @PostMapping(value = "roles")
     @ResponseBody
@@ -101,18 +102,10 @@ public class AdminController {
     @ApiOperation("修改密码")
     @PostMapping(value = "passwd")
     @ResponseBody
-    public JSONObject passwd(@Valid PasswdVO passwdVO) {
-        ServiceResult result = adminService.passwd(passwdVO);
+    public JSONObject passwd(@Valid AdminPasswdVO adminPasswdVO) {
+        String loginAccount = AdminHolder.getLoginAccount();
+        ServiceResult result = adminService.passwd(adminPasswdVO, loginAccount);
         return Response.with(result).build();
-    }
-
-    @ApiOperation("当前登录管理员更新自身信息")
-    @PostMapping("info")
-    @ResponseBody
-    public Response info(@Validated AdminInfoVO vo) {
-        Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
-        ServiceResult result = adminService.updateAdmin(vo, admin.getId());
-        return Response.with(result);
     }
 
 }

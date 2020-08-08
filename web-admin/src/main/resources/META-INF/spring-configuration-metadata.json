@@ -1,9 +1,9 @@
 {
   "groups": [
     {
-      "name": "cn.mklaus.shiro",
-      "type": "cn.mklaus.framework.shiro.ShiroConfigProperties",
-      "sourceType": "cn.mklaus.framework.shiro.ShiroConfigProperties"
+      "name": "cn.mklaus.admin",
+      "type": "cn.mklaus.framework.config.AdminConfigurationProperties",
+      "sourceType": "cn.mklaus.framework.config.AdminConfigurationProperties"
     }
   ]
 }

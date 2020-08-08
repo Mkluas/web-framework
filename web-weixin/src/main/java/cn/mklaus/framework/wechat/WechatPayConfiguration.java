@@ -34,7 +34,6 @@ public class WechatPayConfiguration {
     @Bean("wxMpPayService")
     @Conditional({NotifyUrlCondition.class})
     public WxPayService wxMpPayService() {
-        System.out.println("init WxMpPay ");
         WxPayConfig config = new WxPayConfig();
 
         config.setAppId(mp.getAppId());

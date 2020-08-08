@@ -19,10 +19,13 @@ public class DefaultExceptionLogger implements ExceptionLogger {
 
     @Override
     public void logger(Exception e) {
-        Arrays.stream(e.getStackTrace())
-                .filter(st -> st.getClassName().contains("cn.mklaus"))
-                .filter(st -> !st.getClassName().contains("PerformanceLogConfiguration") && !st.getClassName().contains("$$"))
-                .forEach(st -> logger.error(st.toString()));
+        Throwable throwable =  e;
+        while (throwable != null) {
+            Arrays.stream(throwable.getStackTrace())
+                    .filter(st -> st.getClassName().contains("cn.mklaus"))
+                    .forEach(st -> logger.error(st.toString()));
+            throwable = throwable.getCause();
+        }
     }
 
 }

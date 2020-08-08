@@ -48,7 +48,7 @@ public class WebAutoConfiguration {
                 SerializerFeature.PrettyFormat);
         //3处理中文乱码问题
         List<MediaType> fastMediaTypes = new ArrayList<>();
-        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastMediaTypes.add(MediaType.APPLICATION_JSON);
         converter.setSupportedMediaTypes(fastMediaTypes);
         converter.setFastJsonConfig(fastJsonConfig);
         return converter;

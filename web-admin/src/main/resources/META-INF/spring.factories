@@ -1,8 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.mklaus.framework.shiro.ShiroAutoConfiguration,\
-  cn.mklaus.framework.shiro.ShiroExceptionHandler,\
-  cn.mklaus.framework.shiro.DataInitListener,\
-  cn.mklaus.framework.service.impl.AuthServiceImpl,\
-  cn.mklaus.framework.service.impl.AdminServiceImpl,\
+  cn.mklaus.framework.config.AdminAutoConfiguration,\
   cn.mklaus.framework.web.AuthController,\
   cn.mklaus.framework.web.AdminController

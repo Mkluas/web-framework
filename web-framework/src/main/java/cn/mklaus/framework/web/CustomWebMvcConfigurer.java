@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.text.ParseException;
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * @author klaus
@@ -27,9 +26,6 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
         registry.addFormatter(new Formatter<JSONArray>() {
             @Override
             public JSONArray parse(String s, Locale locale) throws ParseException {
-                if (Objects.isNull(s)) {
-                    return new JSONArray();
-                }
                 return JSONArray.parseArray(s);
             }
             @Override
