@@ -2,8 +2,23 @@
   "groups": [
     {
       "name": "cn.mklaus.wechat",
-      "type": "cn.mklaus.framework.wechat.WechatProperties",
-      "sourceType": "cn.mklaus.framework.wechat.WechatProperties"
+      "type": "cn.mklaus.framework.wechat.properties.WechatProperties",
+      "sourceType": "cn.mklaus.framework.wechat.properties.WechatProperties"
+    },
+    {
+      "name": "cn.mklaus.wechat.mp",
+      "type": "cn.mklaus.framework.wechat.properties.WechatMpProperties",
+      "sourceType": "cn.mklaus.framework.wechat.properties.WechatMpProperties"
+    },
+    {
+      "name": "cn.mklaus.wechat.ma",
+      "type": "cn.mklaus.framework.wechat.properties.WechatMaProperties",
+      "sourceType": "cn.mklaus.framework.wechat.properties.WechatMaProperties"
+    },
+    {
+      "name": "cn.mklaus.wechat.pay",
+      "type": "cn.mklaus.framework.wechat.properties.WechatPayProperties",
+      "sourceType": "cn.mklaus.framework.wechat.properties.WechatPayProperties"
     }
   ]
 }

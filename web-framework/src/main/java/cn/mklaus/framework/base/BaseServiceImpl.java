@@ -19,4 +19,8 @@ public abstract class BaseServiceImpl<T extends Entity> extends EntityService<T>
         this.setDao(dao);
     }
 
+    protected String wrapSearchKey(String key) {
+        return "%" + key + "%";
+    }
+
 }

@@ -1,6 +1,5 @@
 package cn.mklaus.framework.service.impl;
 
-import cn.mklaus.framework.base.BaseService;
 import cn.mklaus.framework.bean.PageVO;
 import cn.mklaus.framework.bean.Pagination;
 import cn.mklaus.framework.bean.dto.AdminDTO;
@@ -53,7 +52,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         SimpleCriteria cri = Cnd.cri();
 
         if (Strings.isNotBlank(pageVO.getKey())) {
-            cri.where().and("concat(username,account,mobile)", "like", BaseService.wrapSearchKey(pageVO.getKey()));
+            cri.where().and("concat(username,account,mobile)", "like", wrapSearchKey(pageVO.getKey()));
         }
         if (forbid != null) {
             cri.where().and("forbid", "=", forbid);

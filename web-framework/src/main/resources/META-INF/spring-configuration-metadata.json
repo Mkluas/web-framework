@@ -9,16 +9,6 @@
       "name": "cn.mklaus.response",
       "type": "cn.mklaus.framework.ResponseProperties",
       "sourceType": "cn.mklaus.framework.ResponseProperties"
-    },
-    {
-      "name": "cn.mklaus.qiniu",
-      "type": "cn.mklaus.framework.support.Qinius.Config",
-      "sourceType": "cn.mklaus.framework.support.Qinius.Config"
-    },
-    {
-      "name": "cn.mklaus.sendcloud",
-      "type": "cn.mklaus.framework.support.Sms.Config",
-      "sourceType": "cn.mklaus.framework.support.Sms.Config"
     }
   ]
 }

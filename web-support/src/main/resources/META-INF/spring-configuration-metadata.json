@@ -1,0 +1,14 @@
+{
+  "groups": [
+    {
+      "name": "cn.mklaus.qiniu",
+      "type": "cn.mklaus.framework.support.qiniu.QiniuProperties",
+      "sourceType": "cn.mklaus.framework.support.qiniu.QiniuProperties"
+    },
+    {
+      "name": "cn.mklaus.sendcloud",
+      "type": "cn.mklaus.framework.support.sms.SendCloudProperties",
+      "sourceType": "cn.mklaus.framework.support.sms.SendCloudProperties"
+    }
+  ]
+}

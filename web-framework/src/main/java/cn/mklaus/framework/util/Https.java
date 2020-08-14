@@ -68,7 +68,7 @@ public class Https {
         String xmlHttpRequest = req.getHeader("x-requested-with");
         boolean ajax = Strings.isNotBlank(xmlHttpRequest);
         String accept = req.getHeader("accept");
-        return !ajax && !Objects.isNull(accept) && accept.contains("html");
+        return !ajax && !Objects.isNull(accept) && accept.contains("text/html");
     }
 
     public static String getCookie(final HttpServletRequest req, final String name) {

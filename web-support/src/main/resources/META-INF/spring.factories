@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.mklaus.framework.support.qiniu.Qiniu,\
+cn.mklaus.framework.support.sms.Sms

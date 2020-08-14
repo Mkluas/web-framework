@@ -1,10 +1,9 @@
 package cn.mklaus.framework.monitor;
 
 import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -17,13 +16,12 @@ import javax.servlet.http.HttpServletRequest;
  * @author Mklaus
  * Created on 2018-01-29 下午12:46
  */
+@Slf4j
 @Aspect
 @Order(1)
 @Component
 @ConditionalOnProperty(prefix = "cn.mklaus.config", value = "logRequest", matchIfMissing = true, havingValue = "true")
 public class WebLogAspect {
-
-    private static Logger log = LoggerFactory.getLogger(WebLogAspect.class);
 
     @Pointcut("execution(public * *..web..*Controller.*(..))")
     public void controllerPointcut(){}
@@ -33,11 +31,11 @@ public class WebLogAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
-        log.info("================== check request information start.. ========================");
-        log.info("URL    : {} {}", request.getRequestURL().toString(), request.getMethod());
+        log.info("--------");
+        log.info("URL    : {} {}", request.getRequestURI(), request.getMethod());
         log.info("METHOD : {}.{}", joinPoint.getSignature().getDeclaringTypeName(),joinPoint.getSignature().getName());
         log.info("ARGS   : {}", JSON.toJSONString(request.getParameterMap()));
-        log.info("================== check request information end ... ========================");
+        log.info("--------");
     }
 
     @AfterReturning(returning = "ret", pointcut = "controllerPointcut()")

@@ -19,16 +19,10 @@ public class AutoConfigurationProperties implements ApplicationContextAware {
 
     private boolean performance;
 
-    private boolean logRequest = true;
-
-    private boolean useDefaultResourceHandler = true;
+    private boolean logRequest;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        if ((basePackage != null && basePackage.length() > 0)) {
-            return;
-        }
-
         String[] springBootApplicationAnnotations = applicationContext.getBeanNamesForAnnotation(SpringBootApplication.class);
         if (springBootApplicationAnnotations.length > 0) {
             Object bean = applicationContext.getBean(springBootApplicationAnnotations[0]);

@@ -1,3 +1,5 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.mklaus.framework.wechat.WechatAutoConfiguration
+  cn.mklaus.framework.wechat.WechatMpAutoConfiguration, \
+  cn.mklaus.framework.wechat.WechatMaAutoConfiguration, \
+  cn.mklaus.framework.wechat.WechatPayAutoConfiguration

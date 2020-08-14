@@ -18,7 +18,7 @@ public class DefaultExceptionLogger implements ExceptionLogger {
     private final static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @Override
-    public void logger(Exception e) {
+    public void log(Exception e) {
         Throwable throwable =  e;
         while (throwable != null) {
             Arrays.stream(throwable.getStackTrace())

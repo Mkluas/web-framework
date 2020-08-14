@@ -6,7 +6,6 @@ import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import java.text.ParseException;
 import java.util.Locale;
 
 /**
@@ -25,7 +24,7 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new Formatter<JSONArray>() {
             @Override
-            public JSONArray parse(String s, Locale locale) throws ParseException {
+            public JSONArray parse(String s, Locale locale) {
                 return JSONArray.parseArray(s);
             }
             @Override

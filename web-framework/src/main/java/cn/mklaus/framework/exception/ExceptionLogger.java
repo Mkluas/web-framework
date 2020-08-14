@@ -6,6 +6,6 @@ package cn.mklaus.framework.exception;
  */
 public interface ExceptionLogger {
 
-    void logger(Exception e);
+    void log(Exception e);
 
 }

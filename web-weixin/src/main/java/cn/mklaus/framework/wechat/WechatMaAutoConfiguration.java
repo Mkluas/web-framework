@@ -3,22 +3,25 @@ package cn.mklaus.framework.wechat;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import cn.mklaus.framework.wechat.properties.WechatMaProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import javax.annotation.Resource;
 
 /**
  * @author Mklaus
  * Created on 2018-04-02 上午11:25
  */
-@ConditionalOnClass(WxMaService.class)
-@EnableConfigurationProperties(WechatProperties.Ma.class)
-public class WechatMaConfiguration {
+@ConditionalOnProperty("cn.mklaus.wechat.ma.app-id")
+@EnableConfigurationProperties(WechatMaProperties.class)
+public class WechatMaAutoConfiguration {
 
-    @Resource
-    private WechatProperties.Ma ma;
+    private final WechatMaProperties ma;
+
+    public WechatMaAutoConfiguration(WechatMaProperties ma) {
+        this.ma = ma;
+    }
 
     @Bean
     public WxMaService wxMaService() {

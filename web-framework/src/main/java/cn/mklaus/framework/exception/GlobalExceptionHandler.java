@@ -84,7 +84,7 @@ public class GlobalExceptionHandler {
 
     private void logException(Exception e) {
         logger.error("GlobalExceptionHandler: " + e.getMessage());
-        exceptionLogger.logger(e);
+        exceptionLogger.log(e);
     }
 
     private static final String X_REQUESTED_WITH = "x-requested-with";

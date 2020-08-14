@@ -6,8 +6,17 @@ package cn.mklaus.framework.exception;
  */
 public interface ErrorInfo {
 
+    /**
+     * errCode = 0, login ok
+     * errCode != 0, logic error
+     * @return int
+     */
     int getErrCode();
 
+    /**
+     * show error message when logic error happen
+     * @return error message
+     */
     String getErrMsg();
 
 }

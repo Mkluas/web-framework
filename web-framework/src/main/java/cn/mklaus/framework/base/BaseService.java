@@ -19,10 +19,6 @@ public interface BaseService<T extends Entity> {
 
     Dao dao();
 
-    static String wrapSearchKey(String key) {
-        return "%" + key + "%";
-    }
-
     Class<T> getEntityClass();
 
     /**
