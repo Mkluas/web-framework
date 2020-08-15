@@ -3,10 +3,15 @@ package cn.mklaus.framework.wechat;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
+import cn.mklaus.framework.wechat.authorize.ma.WechatMaAuthConfig;
+import cn.mklaus.framework.wechat.authorize.ma.WechatMaJwt;
 import cn.mklaus.framework.wechat.properties.WechatMaProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.util.StringUtils;
 
 
 /**
@@ -15,6 +20,7 @@ import org.springframework.context.annotation.Bean;
  */
 @ConditionalOnProperty("cn.mklaus.wechat.ma.app-id")
 @EnableConfigurationProperties(WechatMaProperties.class)
+@Import(WechatMaAuthConfig.class)
 public class WechatMaAutoConfiguration {
 
     private final WechatMaProperties ma;
@@ -33,6 +39,16 @@ public class WechatMaAutoConfiguration {
         WxMaService service = new WxMaServiceImpl();
         service.setWxMaConfig(config);
         return service;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(WechatMaJwt.class)
+    public WechatMaJwt wechatMaJwt() {
+        String secret = ma.getSecret();
+        if (!StringUtils.hasLength(secret)) {
+            secret = ma.getAppId() + ma.getSecret();
+        }
+        return new WechatMaJwt(secret, ma.getJwtTimeout());
     }
 
 }

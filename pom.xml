@@ -42,6 +42,7 @@
         <module>web-weixin</module>
         <module>web-freemarker</module>
         <module>web-support</module>
+        <module>web-jwt</module>
     </modules>
 
     <parent>

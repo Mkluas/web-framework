@@ -4,6 +4,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author klausxie
  * @date 2020-08-13
@@ -26,11 +29,21 @@ public class WechatMpProperties {
 
     private String notifyUri;
 
+    private String authPathPattern;
+
+    private List<String> passPathPatterns;
+
     private String jwtSecret;
 
-    private Long jwtTimeout = 90 * (24 * 3600 * 1000L);
+    private Long jwtTimeout;
 
     private String openid;
+
+    public WechatMpProperties() {
+        this.authPathPattern = "/api/mp/**";
+        this.passPathPatterns = Arrays.asList("/api/wechat/**");
+        this.jwtTimeout = 90 * (24 * 3600 * 1000L);
+    }
 
     public String getPayNotifyUrl() {
         Assert.hasLength(domain, "domain 不能为空");

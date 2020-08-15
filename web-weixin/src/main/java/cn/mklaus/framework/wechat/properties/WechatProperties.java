@@ -13,6 +13,4 @@ import java.util.List;
 @ConfigurationProperties(prefix = "cn.mklaus.wechat")
 public class WechatProperties {
 
-    private List<String> passPathPatterns;
-
 }

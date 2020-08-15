@@ -5,6 +5,7 @@ import cn.org.rapid_framework.freemarker.directive.ExtendsDirective;
 import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import java.util.TimeZone;
  * @author Mklaus
  * Created on 2018-03-30 上午11:00
  */
+@Slf4j
 @Configuration
 public class FreemarkerConfiguration implements InitializingBean {
 
