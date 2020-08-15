@@ -39,7 +39,10 @@
     <modules>
         <module>web-framework</module>
         <module>web-admin</module>
+        <module>web-jwt</module>
         <module>web-weixin</module>
+        <module>web-freemarker</module>
+        <module>web-support</module>
     </modules>
 
     <parent>
