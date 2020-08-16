@@ -48,7 +48,7 @@ public class WechatMpAuthenticationFilter extends AbstractAuthenticationProcessi
         if (StringUtils.hasLength(code) && WECHAT_AUTH_STATE_VALUE.equals(state)) {
             try {
                 String token = handler.handleAuthCode(req, resp, code);
-                Https.setCookie(resp, WechatMpProperties.TOKEN_COOKIE_NAME, token, WECHAT_TOKEN_COOKIE_TIME, true);
+                Https.setCookie(resp, WechatMpProperties.TOKEN_COOKIE_NAME, token, WECHAT_TOKEN_COOKIE_TIME);
                 return getAuthenticationManager().authenticate(new WechatMpAuthenticationToken(token));
             } catch (WxErrorException e) {
                 log.info("handleAuthCode {}", e.getError().getErrorMsg());
