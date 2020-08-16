@@ -1,5 +1,6 @@
 package cn.mklaus.framework.support.qiniu;
 
+import cn.mklaus.framework.support.web.QiniuController;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qiniu.common.QiniuException;
@@ -18,6 +19,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -30,6 +32,7 @@ import java.io.File;
 @Component
 @EnableConfigurationProperties(QiniuProperties.class)
 @ConditionalOnProperty(value = "cn.mklaus.qiniu.access-key")
+@Import(QiniuController.class)
 public class Qiniu implements ApplicationRunner {
 
     private static final String KEY = "key";

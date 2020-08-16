@@ -19,6 +19,8 @@ public class AutoConfigurationProperties implements ApplicationContextAware {
 
     private boolean performance;
 
+    private boolean allowCors = true;
+
     private boolean logRequest;
 
     @Override

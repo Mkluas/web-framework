@@ -74,8 +74,6 @@ public class GlobalExceptionHandler {
 
     private Response internalHandler(String errMsg, Exception e, HttpServletRequest req, HttpServletResponse resp) {
         logException(e);
-        RuntimeException re = e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
-        checkIfHtml(re, req);
         if (responseProperties.isUseHttpStatus()) {
             resp.setStatus(500);
         }
@@ -85,19 +83,6 @@ public class GlobalExceptionHandler {
     private void logException(Exception e) {
         logger.error("GlobalExceptionHandler: " + e.getMessage());
         exceptionLogger.log(e);
-    }
-
-    private static final String X_REQUESTED_WITH = "x-requested-with";
-    private static final String ACCEPT = "accept";
-    private void checkIfHtml(RuntimeException e, HttpServletRequest req) {
-        String xRequestedWith = req.getHeader(X_REQUESTED_WITH);
-        String accept = req.getHeader(ACCEPT);
-        if (Strings.isBlank(xRequestedWith)
-                && !Objects.isNull(accept)
-                && accept.contains("html")) {
-            logger.info("Filter to ErrorController");
-            throw e;
-        }
     }
 
 }

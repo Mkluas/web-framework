@@ -16,4 +16,7 @@ public class SendCloudProperties {
     private String smsUser;
     private String templateId;
 
+    private Integer captchaLength = 4;
+    private Integer timeout = 600;
+
 }

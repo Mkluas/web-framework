@@ -43,6 +43,7 @@ public class WechatMpProperties {
         this.authPathPattern = "/api/mp/**";
         this.passPathPatterns = Arrays.asList("/api/wechat/**");
         this.jwtTimeout = 90 * (24 * 3600 * 1000L);
+        this.notifyUri = "/api/wechat/pay/notify";
     }
 
     public String getPayNotifyUrl() {

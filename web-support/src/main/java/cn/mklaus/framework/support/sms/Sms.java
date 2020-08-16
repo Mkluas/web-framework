@@ -1,6 +1,7 @@
 package cn.mklaus.framework.support.sms;
 
 import cn.mklaus.framework.bean.ServiceResult;
+import cn.mklaus.framework.support.web.SmsController;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.nutz.http.Http;
 import org.nutz.lang.Lang;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -24,6 +26,7 @@ import static java.util.stream.Collectors.joining;
 @ConditionalOnProperty(value = "cn.mklaus.sendcloud.sms-key")
 @Component
 @EnableConfigurationProperties(SendCloudProperties.class)
+@Import(SmsController.class)
 public class Sms {
 
     private static final String STATUS_CODE = "statusCode";

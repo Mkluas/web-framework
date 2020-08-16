@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,8 +35,8 @@ public class DefaultErrorController extends BasicErrorController {
     private final ResponseProperties responseProperties;
 
     public DefaultErrorController(ErrorAttributes errorAttributes, ServerProperties serverProperties,
-                                  ResponseProperties responseProperties) {
-        super(errorAttributes, serverProperties.getError());
+                                  List<ErrorViewResolver> errorViewResolvers, ResponseProperties responseProperties) {
+        super(errorAttributes, serverProperties.getError(), errorViewResolvers);
         this.responseProperties = responseProperties;
     }
 
