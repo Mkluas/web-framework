@@ -19,7 +19,7 @@ public class WechatMpAuthController {
     @GetMapping("api/mp/auth")
     public void auth(String redirect, HttpServletResponse resp) throws IOException {
         redirect = StringUtils.hasLength(redirect) ? redirect : "/";
-        resp.sendRedirect(redirect + "#AUTH_OK");
+        resp.sendRedirect(redirect);
     }
 
 }
