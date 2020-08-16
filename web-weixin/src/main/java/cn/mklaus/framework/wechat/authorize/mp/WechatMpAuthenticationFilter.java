@@ -1,6 +1,7 @@
 package cn.mklaus.framework.wechat.authorize.mp;
 
 import cn.mklaus.framework.util.Https;
+import cn.mklaus.framework.wechat.properties.WechatMpProperties;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +26,6 @@ import java.io.IOException;
 @Slf4j
 public class WechatMpAuthenticationFilter extends AbstractAuthenticationProcessingFilter  {
 
-    private final static String WECHAT_TOKEN_COOKIE = "WECHAT_TOKEN_COOKIE";
     private final static String WECHAT_AUTH_CODE = "code";
     private final static String WECHAT_AUTH_STATE = "state";
     public final static String WECHAT_AUTH_STATE_VALUE = "WECHAT_AUTH_STATE";
@@ -47,14 +47,14 @@ public class WechatMpAuthenticationFilter extends AbstractAuthenticationProcessi
         if (StringUtils.hasLength(code) && WECHAT_AUTH_STATE_VALUE.equals(state)) {
             try {
                 String token = handler.handleAuthCode(req, resp, code);
-                Https.setCookie(resp, WECHAT_TOKEN_COOKIE, token, WECHAT_TOKEN_COOKIE_TIME, true);
+                Https.setCookie(resp, WechatMpProperties.TOKEN_COOKIE_NAME, token, WECHAT_TOKEN_COOKIE_TIME, true);
                 return getAuthenticationManager().authenticate(new WechatMpAuthenticationToken(token));
             } catch (WxErrorException e) {
                 log.info("handleAuthCode {}", e.getError().getErrorMsg());
             }
         }
 
-        String token = Https.getCookie(req, WECHAT_TOKEN_COOKIE);
+        String token = Https.getCookie(req, WechatMpProperties.TOKEN_COOKIE_NAME);
         return getAuthenticationManager().authenticate(new WechatMpAuthenticationToken(token));
     }
 
@@ -69,7 +69,7 @@ public class WechatMpAuthenticationFilter extends AbstractAuthenticationProcessi
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest req, HttpServletResponse resp, AuthenticationException failed) {
-        Https.clearCookie(resp, WECHAT_TOKEN_COOKIE);
+        Https.clearCookie(resp, WechatMpProperties.TOKEN_COOKIE_NAME);
         handler.handleNoAuth(req, resp, failed);
     }
 

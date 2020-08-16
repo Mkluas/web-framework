@@ -27,7 +27,8 @@ public class WechatMpAuthenticationProvider implements AuthenticationProvider {
         WechatMpAuthenticationToken wechatToken = (WechatMpAuthenticationToken) authentication;
 
         if (Langs.IS_MAC_OS && StringUtils.hasLength(wechatMpProperties.getOpenid())) {
-            return new WechatMpAuthenticationToken("USE DEBUG OPENID", wechatMpProperties.getOpenid());
+            String token = jwt.createToken(wechatMpProperties.getOpenid());
+            return new WechatMpAuthenticationToken(token, wechatMpProperties.getOpenid());
         }
 
         if (!StringUtils.hasLength(wechatToken.getToken())) {

@@ -15,6 +15,8 @@ import java.util.List;
 @ConfigurationProperties(prefix = "cn.mklaus.wechat.mp")
 public class WechatMpProperties {
 
+    public final static String TOKEN_COOKIE_NAME = "WECHAT_AUTH_TOKEN";
+
     private String appId;
 
     private String secret;
