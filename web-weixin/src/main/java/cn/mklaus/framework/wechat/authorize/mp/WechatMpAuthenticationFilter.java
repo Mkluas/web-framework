@@ -48,7 +48,6 @@ public class WechatMpAuthenticationFilter extends AbstractAuthenticationProcessi
         if (StringUtils.hasLength(code) && WECHAT_AUTH_STATE_VALUE.equals(state)) {
             try {
                 String token = handler.handleAuthCode(req, resp, code);
-                Https.clearCookie(resp, WechatMpProperties.TOKEN_COOKIE_NAME);
                 Https.setCookie(resp, WechatMpProperties.TOKEN_COOKIE_NAME, token, WECHAT_TOKEN_COOKIE_TIME, true);
                 return getAuthenticationManager().authenticate(new WechatMpAuthenticationToken(token));
             } catch (WxErrorException e) {
@@ -65,15 +64,14 @@ public class WechatMpAuthenticationFilter extends AbstractAuthenticationProcessi
                                             Authentication authResult) throws IOException, ServletException {
 
         // for debug
-//        String token = Https.getCookie(request, WechatMpProperties.TOKEN_COOKIE_NAME);
-//        if (Langs.IS_MAC_OS && !StringUtils.hasLength(token)) {
-//            WechatMpAuthenticationToken authenticationToken = (WechatMpAuthenticationToken)authResult;
-//            Https.clearCookie(response, WechatMpProperties.TOKEN_COOKIE_NAME);
-//            Https.setCookie(response,
-//                    WechatMpProperties.TOKEN_COOKIE_NAME,
-//                    authenticationToken.getToken(),
-//                    WECHAT_TOKEN_COOKIE_TIME);
-//        }
+        String token = Https.getCookie(request, WechatMpProperties.TOKEN_COOKIE_NAME);
+        if (Langs.IS_MAC_OS && !StringUtils.hasLength(token)) {
+            WechatMpAuthenticationToken authenticationToken = (WechatMpAuthenticationToken)authResult;
+            Https.setCookie(response,
+                    WechatMpProperties.TOKEN_COOKIE_NAME,
+                    authenticationToken.getToken(),
+                    WECHAT_TOKEN_COOKIE_TIME);
+        }
 
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
