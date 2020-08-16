@@ -44,7 +44,7 @@ public class WechatMaAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(WechatMaJwt.class)
     public WechatMaJwt wechatMaJwt() {
-        String secret = ma.getSecret();
+        String secret = ma.getJwtSecret();
         if (!StringUtils.hasLength(secret)) {
             secret = ma.getAppId() + ma.getSecret();
         }

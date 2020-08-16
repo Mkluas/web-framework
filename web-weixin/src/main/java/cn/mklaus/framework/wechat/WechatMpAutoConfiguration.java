@@ -53,7 +53,7 @@ public class WechatMpAutoConfiguration {
 
     @Bean
     public WechatMpJwt wechatMpJwt() {
-        String secret = mp.getSecret();
+        String secret = mp.getJwtSecret();
         if (!StringUtils.hasLength(secret)) {
             secret = mp.getAppId() + mp.getSecret();
         }
