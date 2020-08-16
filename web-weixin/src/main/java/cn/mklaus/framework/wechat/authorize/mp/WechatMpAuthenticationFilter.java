@@ -61,6 +61,17 @@ public class WechatMpAuthenticationFilter extends AbstractAuthenticationProcessi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
+
+        // for debug
+        String token = Https.getCookie(request, WechatMpProperties.TOKEN_COOKIE_NAME);
+        if (!StringUtils.hasLength(token)) {
+            WechatMpAuthenticationToken authenticationToken = (WechatMpAuthenticationToken)authResult;
+            Https.setCookie(response,
+                    WechatMpProperties.TOKEN_COOKIE_NAME,
+                    authenticationToken.getToken(),
+                    WECHAT_TOKEN_COOKIE_TIME);
+        }
+
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
         SecurityContextHolder.setContext(context);
