@@ -1,6 +1,7 @@
 package cn.mklaus.framework.wechat.authorize.mp;
 
 import cn.mklaus.framework.util.Https;
+import cn.mklaus.framework.util.Langs;
 import cn.mklaus.framework.wechat.properties.WechatMpProperties;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -64,7 +65,7 @@ public class WechatMpAuthenticationFilter extends AbstractAuthenticationProcessi
 
         // for debug
         String token = Https.getCookie(request, WechatMpProperties.TOKEN_COOKIE_NAME);
-        if (!StringUtils.hasLength(token)) {
+        if (Langs.IS_MAC_OS && !StringUtils.hasLength(token)) {
             WechatMpAuthenticationToken authenticationToken = (WechatMpAuthenticationToken)authResult;
             Https.setCookie(response,
                     WechatMpProperties.TOKEN_COOKIE_NAME,
