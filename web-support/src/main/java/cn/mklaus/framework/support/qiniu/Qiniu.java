@@ -115,7 +115,7 @@ public class Qiniu implements ApplicationRunner {
             JSONObject response = JSON.parseObject(content);
 
             action = response.getJSONObject("up").getJSONObject("acc").getJSONArray("main").get(0).toString();
-            qiniuProperties.setAction(action);
+            qiniuProperties.setAction("//" + action);
 
             fetchUrl = response.getJSONObject("io").getJSONObject("src").getJSONArray("main").get(0).toString();
             qiniuProperties.setFetchUrl(fetchUrl);
