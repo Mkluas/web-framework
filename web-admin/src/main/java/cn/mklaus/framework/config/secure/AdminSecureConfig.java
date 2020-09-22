@@ -1,5 +1,6 @@
 package cn.mklaus.framework.config.secure;
 
+import cn.mklaus.framework.service.AdminService;
 import cn.mklaus.framework.util.Https;
 import cn.mklaus.framework.web.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -31,16 +32,16 @@ import java.io.IOException;
 @Slf4j
 @Configuration
 @EnableWebSecurity
-@Import({AdminAuthenticationProvider.class, AdminUserDetailsService.class})
+@Import({AdminAuthenticationProvider.class})
 public class AdminSecureConfig extends WebSecurityConfigurerAdapter {
 
     private final AdminAuthenticationProvider adminAuthenticationProvider;
     private final AdminUserDetailsService adminUserDetailsService;
 
     public AdminSecureConfig(AdminAuthenticationProvider adminAuthenticationProvider,
-                             AdminUserDetailsService adminUserDetailsService) {
+                             AdminService adminService) {
         this.adminAuthenticationProvider = adminAuthenticationProvider;
-        this.adminUserDetailsService = adminUserDetailsService;
+        this.adminUserDetailsService = new AdminUserDetailsService(adminService);
     }
 
     @Override
@@ -82,8 +83,8 @@ public class AdminSecureConfig extends WebSecurityConfigurerAdapter {
 
     public static class AdminAntRequestMatcher implements RequestMatcher {
 
-        private AntPathRequestMatcher backendMatcher;
-        private AntPathRequestMatcher authMatcher;
+        private final AntPathRequestMatcher backendMatcher;
+        private final AntPathRequestMatcher authMatcher;
 
         public AdminAntRequestMatcher() {
             this.authMatcher = new AntPathRequestMatcher("/api/auth/**");
