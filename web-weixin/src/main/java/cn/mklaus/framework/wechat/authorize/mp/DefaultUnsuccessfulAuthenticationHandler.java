@@ -40,8 +40,8 @@ public class DefaultUnsuccessfulAuthenticationHandler implements UnsuccessfulAut
     public String handleAuthCode(HttpServletRequest req, HttpServletResponse resp, String authCode) throws WxErrorException {
         WxMpOAuth2AccessToken accessToken = wxMpService.oauth2getAccessToken(authCode);
         WxMpUser mpUser = wxMpService.oauth2getUserInfo(accessToken, "zh_CN");
-        wxMpUserHandler.handleWxMpUser(mpUser);
-        return wechatMpJwt.createToken(mpUser.getOpenId());
+        int userId = wxMpUserHandler.handleWxMpUser(mpUser);
+        return wechatMpJwt.createToken(mpUser.getOpenId(), userId);
     }
 
     @SneakyThrows

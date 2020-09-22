@@ -1,10 +1,12 @@
 package cn.mklaus.framework.wechat.authorize.mp;
 
+import cn.mklaus.framework.wechat.authorize.AuthInfo;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ import java.util.Map;
 public class WechatMpJwt {
 
     private static final String OPENID = "OPENID";
+    private static final String USERID = "USERID";
 
     private final JWTVerifier jwtVerifier;
     private final Map<String, Object> header;
@@ -33,26 +36,28 @@ public class WechatMpJwt {
         this.header = map;
     }
 
-    public String createToken(String openid) {
+    public String createToken(String openid, int userId) {
         Date expireDate = new Date(System.currentTimeMillis() + timeout);
         return JWT.create()
                 .withHeader(header)
                 .withClaim(OPENID, openid)
+                .withClaim(USERID, userId)
                 .withExpiresAt(expireDate)
                 .withIssuedAt(new Date())
                 .sign(algorithm);
     }
 
-    public String verifyToken(String token) {
+    public AuthInfo verifyToken(String token) {
         try {
             DecodedJWT jwt = jwtVerifier.verify(token);
-            Claim claim = jwt.getClaim(OPENID);
-            return claim.asString();
+            Claim openid = jwt.getClaim(OPENID);
+            Claim userid = jwt.getClaim(USERID);
+            AuthInfo authInfo = new AuthInfo(openid.asString(), userid.asInt());
+            authInfo.setToken(token);
+            return authInfo;
         } catch (Exception e) {
             return null;
         }
     }
-
-
 
 }

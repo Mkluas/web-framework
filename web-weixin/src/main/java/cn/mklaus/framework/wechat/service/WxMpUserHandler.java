@@ -8,6 +8,6 @@ import me.chanjar.weixin.mp.bean.result.WxMpUser;
  */
 public interface WxMpUserHandler {
 
-    void handleWxMpUser(WxMpUser wxMpUser);
+    int handleWxMpUser(WxMpUser wxMpUser);
 
 }

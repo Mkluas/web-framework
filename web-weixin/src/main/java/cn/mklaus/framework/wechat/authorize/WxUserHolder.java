@@ -12,10 +12,18 @@ import org.springframework.util.Assert;
  */
 public class WxUserHolder {
 
+    public static int getUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Assert.state(authentication.getPrincipal().getClass() == AuthInfo.class, "principal not AuthInfo");
+        AuthInfo authInfo = (AuthInfo) authentication.getPrincipal();
+        return authInfo.getUserId();
+    }
+
     public static String getOpenid() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Assert.state(authentication.getPrincipal().getClass() == String.class, "principal not String");
-        return authentication.getPrincipal().toString();
+        Assert.state(authentication.getPrincipal().getClass() == AuthInfo.class, "principal not AuthInfo");
+        AuthInfo authInfo = (AuthInfo) authentication.getPrincipal();
+        return authInfo.getOpenid();
     }
 
     public static String getToken() {
@@ -28,6 +36,5 @@ public class WxUserHolder {
         }
         throw new IllegalStateException("Authentication do not contain token");
     }
-
 
 }

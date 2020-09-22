@@ -41,6 +41,8 @@ public class WechatMpProperties {
 
     private String openid;
 
+    private Integer userId;
+
     public WechatMpProperties() {
         this.authPathPattern = "/api/mp/**";
         this.passPathPatterns = Arrays.asList("/api/wechat/**");

@@ -33,7 +33,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     @Override
     public Object getPrincipal() {
         if (principal == null) {
-            this.principal = jwt.getPrincipal(this.token);
+            this.principal =  jwt.getPrincipal(this.token);
         }
         return principal;
     }

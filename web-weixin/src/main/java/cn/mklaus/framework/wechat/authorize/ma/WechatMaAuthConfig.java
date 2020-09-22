@@ -44,7 +44,7 @@ public class WechatMaAuthConfig extends AbstractJwtSecurityConfig {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         if (maProperties.getPassPathPatterns() != null) {
             maProperties.getPassPathPatterns().forEach(path -> web.ignoring().mvcMatchers(path));
         }

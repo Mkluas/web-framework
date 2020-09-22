@@ -1,5 +1,6 @@
 package cn.mklaus.framework.wechat.authorize.mp;
 
+import cn.mklaus.framework.wechat.authorize.AuthInfo;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -12,21 +13,21 @@ import java.util.Collection;
 public class WechatMpAuthenticationToken extends AbstractAuthenticationToken {
 
     private String token;
-    private String openid;
+    private AuthInfo principal;
 
     public WechatMpAuthenticationToken(String token) {
         super(null);
         this.token = token;
     }
 
-    public WechatMpAuthenticationToken(String token, String openid) {
-        this(token, openid, null);
+    public WechatMpAuthenticationToken(AuthInfo authInfo) {
+        this(authInfo, null);
     }
 
-    public WechatMpAuthenticationToken(String token, String openid, Collection<? extends GrantedAuthority> authorities) {
+    public WechatMpAuthenticationToken(AuthInfo authInfo, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
-        this.token = token;
-        this.openid = openid;
+        this.principal = authInfo;
+        this.token = authInfo.getToken();
         this.setAuthenticated(true);
     }
 
@@ -37,15 +38,11 @@ public class WechatMpAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return openid;
+        return principal;
     }
 
     public String getToken() {
         return token;
-    }
-
-    public String getOpenid() {
-        return openid;
     }
 
 }

@@ -12,9 +12,10 @@ import me.chanjar.weixin.mp.bean.result.WxMpUser;
 public class DefaultWxMpUserHandler implements WxMpUserHandler {
 
     @Override
-    public void handleWxMpUser(WxMpUser wxMpUser) {
+    public int handleWxMpUser(WxMpUser wxMpUser) {
         log.warn("This handler should be implement by user");
         log.info(wxMpUser.toString());
+        return -1;
     }
 
 }
