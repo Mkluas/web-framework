@@ -8,6 +8,7 @@ import cn.mklaus.framework.wechat.authorize.ma.WechatMaJwt;
 import cn.mklaus.framework.wechat.properties.WechatMaProperties;
 import cn.mklaus.framework.wechat.service.WxMaUserHandler;
 import cn.mklaus.framework.wechat.service.impl.DefaultWxMaUserHandler;
+import cn.mklaus.framework.wechat.web.WechatMaAuthController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,7 +23,7 @@ import org.springframework.util.StringUtils;
  */
 @ConditionalOnProperty("cn.mklaus.wechat.ma.app-id")
 @EnableConfigurationProperties(WechatMaProperties.class)
-@Import(WechatMaAuthConfig.class)
+@Import({WechatMaAuthConfig.class, WechatMaAuthController.class})
 public class WechatMaAutoConfiguration {
 
     private final WechatMaProperties ma;
