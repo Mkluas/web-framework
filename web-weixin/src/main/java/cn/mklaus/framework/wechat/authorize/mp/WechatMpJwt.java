@@ -1,12 +1,11 @@
 package cn.mklaus.framework.wechat.authorize.mp;
 
-import cn.mklaus.framework.wechat.authorize.AuthInfo;
+import cn.mklaus.framework.wechat.authorize.WxAuthInfo;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import lombok.Data;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -47,14 +46,14 @@ public class WechatMpJwt {
                 .sign(algorithm);
     }
 
-    public AuthInfo verifyToken(String token) {
+    public WxAuthInfo verifyToken(String token) {
         try {
             DecodedJWT jwt = jwtVerifier.verify(token);
             Claim openid = jwt.getClaim(OPENID);
             Claim userid = jwt.getClaim(USERID);
-            AuthInfo authInfo = new AuthInfo(openid.asString(), userid.asInt());
-            authInfo.setToken(token);
-            return authInfo;
+            WxAuthInfo wxAuthInfo = new WxAuthInfo(openid.asString(), userid.asInt());
+            wxAuthInfo.setToken(token);
+            return wxAuthInfo;
         } catch (Exception e) {
             return null;
         }

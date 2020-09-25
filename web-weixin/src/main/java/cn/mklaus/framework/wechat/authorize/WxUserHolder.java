@@ -14,16 +14,16 @@ public class WxUserHolder {
 
     public static int getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Assert.state(authentication.getPrincipal().getClass() == AuthInfo.class, "principal not AuthInfo");
-        AuthInfo authInfo = (AuthInfo) authentication.getPrincipal();
-        return authInfo.getUserId();
+        Assert.state(authentication.getPrincipal().getClass() == WxAuthInfo.class, "principal not AuthInfo");
+        WxAuthInfo wxAuthInfo = (WxAuthInfo) authentication.getPrincipal();
+        return wxAuthInfo.getUserId();
     }
 
     public static String getOpenid() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Assert.state(authentication.getPrincipal().getClass() == AuthInfo.class, "principal not AuthInfo");
-        AuthInfo authInfo = (AuthInfo) authentication.getPrincipal();
-        return authInfo.getOpenid();
+        Assert.state(authentication.getPrincipal().getClass() == WxAuthInfo.class, "principal not AuthInfo");
+        WxAuthInfo wxAuthInfo = (WxAuthInfo) authentication.getPrincipal();
+        return wxAuthInfo.getOpenid();
     }
 
     public static String getToken() {

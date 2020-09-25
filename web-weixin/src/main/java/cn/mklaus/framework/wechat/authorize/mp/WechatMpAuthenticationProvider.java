@@ -1,7 +1,7 @@
 package cn.mklaus.framework.wechat.authorize.mp;
 
 import cn.mklaus.framework.util.Langs;
-import cn.mklaus.framework.wechat.authorize.AuthInfo;
+import cn.mklaus.framework.wechat.authorize.WxAuthInfo;
 import cn.mklaus.framework.wechat.properties.WechatMpProperties;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,18 +29,18 @@ public class WechatMpAuthenticationProvider implements AuthenticationProvider {
 
         if (Langs.IS_MAC_OS && StringUtils.hasLength(wechatMpProperties.getOpenid())) {
             String token = jwt.createToken(wechatMpProperties.getOpenid(), wechatMpProperties.getUserId());
-            AuthInfo authInfo = new AuthInfo(wechatMpProperties.getOpenid(), wechatMpProperties.getUserId());
-            authInfo.setToken(token);
-            return new WechatMpAuthenticationToken(authInfo);
+            WxAuthInfo wxAuthInfo = new WxAuthInfo(wechatMpProperties.getOpenid(), wechatMpProperties.getUserId());
+            wxAuthInfo.setToken(token);
+            return new WechatMpAuthenticationToken(wxAuthInfo);
         }
 
         if (!StringUtils.hasLength(wechatToken.getToken())) {
             throw new BadCredentialsException("token not found");
         }
 
-        AuthInfo authInfo = jwt.verifyToken(wechatToken.getToken());
-        if (authInfo != null) {
-            return new WechatMpAuthenticationToken(authInfo);
+        WxAuthInfo wxAuthInfo = jwt.verifyToken(wechatToken.getToken());
+        if (wxAuthInfo != null) {
+            return new WechatMpAuthenticationToken(wxAuthInfo);
         }
 
         throw new BadCredentialsException("token expire or invalid");

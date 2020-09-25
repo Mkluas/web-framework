@@ -7,11 +7,11 @@ import lombok.Data;
  * @date 2020-09-22
  */
 @Data
-public class AuthInfo {
+public class WxAuthInfo {
     private String openid;
     private Integer userId;
     private String token;
-    public AuthInfo(String openid, Integer userId) {
+    public WxAuthInfo(String openid, Integer userId) {
         this.openid = openid;
         this.userId = userId;
     }

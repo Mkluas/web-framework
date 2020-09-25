@@ -6,6 +6,8 @@ import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
 import cn.mklaus.framework.wechat.authorize.ma.WechatMaAuthConfig;
 import cn.mklaus.framework.wechat.authorize.ma.WechatMaJwt;
 import cn.mklaus.framework.wechat.properties.WechatMaProperties;
+import cn.mklaus.framework.wechat.service.WxMaUserHandler;
+import cn.mklaus.framework.wechat.service.impl.DefaultWxMaUserHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -49,6 +51,12 @@ public class WechatMaAutoConfiguration {
             secret = ma.getAppId() + ma.getSecret();
         }
         return new WechatMaJwt(secret, ma.getJwtTimeout());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(WxMaUserHandler.class)
+    public WxMaUserHandler wxMaUserHandler() {
+        return new DefaultWxMaUserHandler();
     }
 
 }
