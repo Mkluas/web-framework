@@ -84,7 +84,7 @@ public class Https {
     public static boolean isAjax(final HttpServletRequest req) {
         String lowercase = req.getHeader("x-requested-with");
         String uppercase = req.getHeader("X-Requested-With");
-        return StringUtils.hasText(lowercase) || StringUtils.hasText(uppercase);
+        return "XMLHttpRequest".equalsIgnoreCase(lowercase) || "XMLHttpRequest".equalsIgnoreCase(uppercase);
     }
 
     public static String getCookie(final HttpServletRequest req, final String name) {
