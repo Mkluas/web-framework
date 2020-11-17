@@ -3,6 +3,7 @@ package cn.mklaus.framework.util;
 import org.nutz.http.Http;
 import org.nutz.lang.Strings;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
@@ -65,10 +66,25 @@ public class Https {
     }
 
     public static boolean acceptHtml(final HttpServletRequest req) {
-        String xmlHttpRequest = req.getHeader("x-requested-with");
-        boolean ajax = Strings.isNotBlank(xmlHttpRequest);
+        if (isAjax(req)) {
+            return false;
+        }
         String accept = req.getHeader("accept");
-        return !ajax && !Objects.isNull(accept) && accept.contains("text/html");
+        if (accept == null) {
+            return true;
+        }
+        return accept.contains("*/*") || accept.contains("text/html");
+    }
+
+    public static boolean acceptJSONOnly(final HttpServletRequest req) {
+        String accept = req.getHeader("accept");
+        return "application/json".equalsIgnoreCase(accept);
+    }
+
+    public static boolean isAjax(final HttpServletRequest req) {
+        String lowercase = req.getHeader("x-requested-with");
+        String uppercase = req.getHeader("X-Requested-With");
+        return StringUtils.hasText(lowercase) || StringUtils.hasText(uppercase);
     }
 
     public static String getCookie(final HttpServletRequest req, final String name) {

@@ -6,6 +6,7 @@ import cn.mklaus.framework.web.Response;
 import cn.mklaus.framework.wechat.properties.WechatMpProperties;
 import cn.mklaus.framework.wechat.service.WxMpUserHandler;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author klausxie
  * @date 2020-08-14
  */
+@Slf4j
 public class DefaultUnsuccessfulAuthenticationHandler implements UnsuccessfulAuthenticationHandler {
 
     private final WxMpService wxMpService;
@@ -47,7 +49,11 @@ public class DefaultUnsuccessfulAuthenticationHandler implements UnsuccessfulAut
     @SneakyThrows
     @Override
     public void handleNoAuth(HttpServletRequest req, HttpServletResponse resp, AuthenticationException failed) {
-        if (Https.acceptHtml(req)) {
+        if (Https.acceptJSONOnly(req) || Https.isAjax(req)) {
+            log.warn("wechat no auth: " + req.getRequestURI());
+            Response response = Response.error(BaseErrorEnum.ACCOUNT_UNAUTHENTICATED);
+            Https.response(response.toString(), resp);
+        } else {
             String queryString = StringUtils.hasLength(req.getQueryString()) ? "?" + req.getQueryString() : "";
             String currentUrl = wechatMpProperties.getDomain() + req.getRequestURI() + queryString;
             String redirectUrl = wxMpService.oauth2buildAuthorizationUrl(
@@ -56,9 +62,6 @@ public class DefaultUnsuccessfulAuthenticationHandler implements UnsuccessfulAut
                     WechatMpAuthenticationFilter.WECHAT_AUTH_STATE_VALUE
             );
             resp.sendRedirect(redirectUrl);
-        } else {
-            Response response = Response.error(BaseErrorEnum.ACCOUNT_UNAUTHENTICATED);
-            Https.response(response.toString(), resp);
         }
     }
 
