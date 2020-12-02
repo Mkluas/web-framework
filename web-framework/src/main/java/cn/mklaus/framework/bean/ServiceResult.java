@@ -74,4 +74,14 @@ public class ServiceResult {
         return classOfT.cast(this.data.get(ENTITY_KEY));
     }
 
+    public ServiceResult entity(Object entity) {
+        String simpleName = entity.getClass().getSimpleName();
+        String hump = simpleName.substring(0,1).toLowerCase() + simpleName.substring(1);
+        return this.put(hump, entity);
+    }
+
+    public ServiceResult pager(Pagination pagination) {
+        return this.put("pager", pagination);
+    }
+
 }

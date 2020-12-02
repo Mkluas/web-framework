@@ -1,6 +1,7 @@
 package cn.mklaus.framework.web;
 
 import cn.mklaus.framework.ResponseProperties;
+import cn.mklaus.framework.bean.Pagination;
 import cn.mklaus.framework.bean.ServiceResult;
 import cn.mklaus.framework.exception.ErrorInfo;
 import com.alibaba.fastjson.JSON;
@@ -79,6 +80,16 @@ public class Response {
     public Response putEntity(Object entity) {
         this.data.putAll(JSON.parseObject(JSON.toJSONString(entity)));
         return this;
+    }
+
+    public Response entity(Object entity) {
+        String simpleName = entity.getClass().getSimpleName();
+        String hump = simpleName.substring(0,1).toLowerCase() + simpleName.substring(1);
+        return this.put(hump, entity);
+    }
+
+    public Response pager(Pagination pagination) {
+        return this.put("pager", pagination);
     }
 
     public JSONObject build() {

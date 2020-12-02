@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class ResponseHttpMessageConverter implements HttpMessageConverter<Response> {
 
-    private ResponseProperties responseProperties;
-    private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
+    private final ResponseProperties responseProperties;
+    private final FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
 
     public ResponseHttpMessageConverter(FastJsonHttpMessageConverter converter, ResponseProperties responseProperties) {
         this.responseProperties = responseProperties;

@@ -30,7 +30,7 @@ import static com.alibaba.fastjson.serializer.SerializerFeature.*;
 @AutoConfigureAfter(HttpMessageConvertersAutoConfiguration.class)
 public class WebAutoConfiguration {
 
-    private ResponseProperties responseProperties;
+    private final ResponseProperties responseProperties;
 
     public WebAutoConfiguration(ResponseProperties responseProperties) {
         this.responseProperties = responseProperties;

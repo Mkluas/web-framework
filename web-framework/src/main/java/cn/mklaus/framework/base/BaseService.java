@@ -9,6 +9,7 @@ import org.nutz.dao.sql.Sql;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -115,20 +116,6 @@ public interface BaseService<T extends Entity> {
         return this.dao().count(getEntityClass(), condition);
     }
 
-    default List<Record> list(Sql sql) {
-        sql.setCallback(Sqls.callback.records());
-        this.dao().execute(sql);
-        return sql.getList(Record.class);
-    }
-
-    default Pagination listPage(Sql sql, Pager pager) {
-        int count = this.count(sql);
-        pager.setRecordCount(count);
-        sql.setPager(pager);
-        List<Record> recordList = (count == 0) ? new ArrayList<>() : list(sql);
-        return Pagination.create(pager, recordList);
-    }
-
     default Pagination listPage(Condition condition, Pager pager) {
         int count = this.count(condition);
         pager.setRecordCount(count);
@@ -141,6 +128,21 @@ public interface BaseService<T extends Entity> {
         pager.setRecordCount(count);
         List<T> recordList = (count == 0) ? new ArrayList<>() : query(condition, fieldMatcher, pager);
         return Pagination.create(pager, recordList);
+    }
+
+    default <U> Pagination listPage(Sql sql, Pager pager, Class<U> clazz) {
+        int count = this.count(sql);
+        pager.setRecordCount(count);
+        sql.setPager(pager);
+        List<U> recordList = count == 0 ? Collections.emptyList() : this.list(sql, clazz);
+        return Pagination.create(pager, recordList);
+    }
+
+    default <U> List<U> list(Sql sql, Class<U> clazz) {
+        sql.setCallback(Sqls.callback.entities());
+        sql.setEntity(dao().getEntity(clazz));
+        this.dao().execute(sql);
+        return sql.getList(clazz);
     }
 
     /**
