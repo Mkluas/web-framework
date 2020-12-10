@@ -83,6 +83,9 @@ public class Response {
     }
 
     public Response entity(Object entity) {
+        if (entity == null) {
+            return this;
+        }
         String simpleName = entity.getClass().getSimpleName();
         String hump = simpleName.substring(0,1).toLowerCase() + simpleName.substring(1);
         return this.put(hump, entity);
